@@ -1,0 +1,100 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+    margin: 0; /* Eliminar el margen predeterminado */
+    padding: 0; /* Eliminar el relleno predeterminado */
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Estilos del encabezado */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 85px;
+    padding: 0 20px;
+    position: fixed; /* Hacer que el encabezado sea fijo en la parte superior */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Asegurar que el encabezado esté por encima de otros elementos */
+    background-color: #000000; /* Color de fondo del encabezado */
+}
+
+.header-logo {
+    flex: 1;
+}
+
+.header-logo svg {
+    fill: white;
+}
+
+/* Estilos de la sección principal */
+.home-content {
+    color: white;
+    text-align: center;
+    padding: 100px 20px; /* Espacio de relleno superior e inferior */
+    margin-top: 85px; /* Compensar el espacio ocupado por el encabezado */
+}
+
+.home-content h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.home-content p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+ /* Estilos de la sección "Sobre Mí" */
+ .main .sobre-mi {
+    min-height: 100vh;
+    padding: 0rem 0;
+    background: #000000;
+    color: #000000;
+    margin-bottom: 0rem;
+}
+
+.main .sobre-mi .contenedor-sobre-mi .texto {
+    padding: 1.5rem 0;
+    background: #101010;
+    color: red;
+    font-family: monospace, Arial;
+    width: 70%;
+    min-height: 27.5rem;
+    margin: 0 auto;
+    border-radius: 0.625rem;
+}
+
+.main .sobre-mi .contenedor-sobre-mi .texto #pow-txt {
+    display: none;
+    color: #e3e3e3;
+    font-weight: 100;
+}
+
+.main .sobre-mi .contenedor-sobre-mi .texto .direccion {
+    margin-bottom: 1rem;
+}
+
+.main .sobre-mi .contenedor-sobre-mi .texto #pow-txt {
+    margin-bottom: 1rem;
+}
+
+.main .sobre-mi .contenedor-sobre-mi .texto .descripcion {
+    color: grey;
+    font-weight: 100;
+    line-height: 1.5;
+}
+
+.main .sobre-mi .contenedor-sobre-mi .texto p {
+    width: 90%;
+    margin: 0 auto;
+}
