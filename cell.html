@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="icon" href="img/red.ico" type="image/x-icon">
-    <link rel="stylesheet" href="cell.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         /* Estilos de la imagen */
         .background-image {
@@ -51,7 +51,7 @@
 
         .header-nav {
             display: flex;
-            justify-content: center;
+            justify-content: flex-end; /* Posiciona los elementos al final del contenedor */
             align-items: center;
             padding: 10px;
             background-color: #000000; /* Color de fondo de la barra de navegación */
@@ -70,7 +70,7 @@
             background-color: #000000; /* Cambiar el color de fondo al pasar el cursor */
         }
 
-        @media only screen and (max-width: 768px) {
+        @media only screen and (max-width: 800px) {
             .header-nav {
                 display: none; /* Ocultar la barra de navegación en pantallas pequeñas */
             }
@@ -80,7 +80,7 @@
                 color: #fff;
                 font-size: 24px;
                 cursor: pointer;
-                margin-right: 10px;
+                margin-right: 20px; /* Ajustar el margen para que esté más a la derecha */
             }
 
             .mobile-nav {
@@ -88,11 +88,19 @@
             }
 
             .mobile-nav.active {
-                display: block; /* Mostrar el menú desplegable cuando se activa */
+                display: flex; /* Mostrar el menú desplegable cuando se activa */
+                flex-direction: column; /* Alinear elementos en columna */
+                position: absolute; /* Posición absoluta para superponer */
+                top: 60px; /* Ajustar la posición vertical */
+                right: 20px; /* Ajustar la posición horizontal */
+                background-color: #000000; /* Color de fondo del menú */
+                padding: 10px; /* Espacio interno */
+                border-radius: 5px; /* Borde redondeado */
             }
 
             .mobile-nav a {
-                display: block;
+                color: #fff;
+                text-decoration: none;
                 padding: 10px 0;
             }
         }
@@ -140,59 +148,57 @@
     </main>
 
     <script>
+        const text = `
+            ¡Bienvenido!: 
 
-    const text = `
-        ¡Bienvenido!: 
+            Soy conocido como Physco, conocido principalmente por mis proyectos y desarrollos como scripts y reverse shells para Windows, y por mi pasión por programar. No soy ningun experto en la informática pero me he destacado porque la misma ha sido como un refugio para mí desde los 6-7 años, cuando todo comenzó. Empece programando en Java durante mis primeros años, pero luego cambié a HTML y CSS mientras cursaba un programa de hardware llamado CS50. Fue entonces cuando conocí a Python, con quien sigo trabajando actualmente y quien me ha ayudado a mejorar en el mundo del pentesting, creando scripts de automatización. Actualmente hago todo lo que hago por pasion y si no es relacionado a esto no se hacer mas nada. Muchas info no? ...
+        `;
 
-        Soy conocido como Physco, conocido principalmente por mis proyectos y desarrollos como scripts y reverse shells para Windows, y por mi pasión por programar. No soy ningun experto en la informática pero me he destacado porque la misma ha sido como un refugio para mí desde los 6-7 años, cuando todo comenzó. Empece programando en Java durante mis primeros años, pero luego cambié a HTML y CSS mientras cursaba un programa de hardware llamado CS50. Fue entonces cuando conocí a Python, con quien sigo trabajando actualmente y quien me ha ayudado a mejorar en el mundo del pentesting, creando scripts de automatización. Actualmente hago todo lo que hago por pasion y si no es relacionado a esto no se hacer mas nada. Muchas info no? ...
-    `;
+        const terminalElement = document.getElementById('terminal');
+        let index = 0;
 
-    const terminalElement = document.getElementById('terminal');
-    let index = 0;
-
-    function writeText() {
-        terminalElement.textContent += text[index++];
-        if (index < text.length) {
-            setTimeout(writeText, 10); 
+        function writeText() {
+            terminalElement.textContent += text[index++];
+            if (index < text.length) {
+                setTimeout(writeText, 10); 
+            }
         }
-    }
 
-    writeText();
+        writeText();
 
-    function isInView(element) {
-        const rect = element.getBoundingClientRect();
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-    }
-
-    function addInViewClass() {
-        const content = document.querySelector('.home-content');
-        if (isInView(content)) {
-            content.classList.add('in-view');
+        function isInView(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
         }
-    }
 
-    addInViewClass();
-    window.addEventListener('scroll', addInViewClass);
+        function addInViewClass() {
+            const content = document.querySelector('.home-content');
+            if (isInView(content)) {
+                content.classList.add('in-view');
+            }
+        }
 
-    function toggleMobileNav() {
-        const headerNav = document.getElementById('header-nav');
-        headerNav.classList.toggle('active');
-    }
+        addInViewClass();
+        window.addEventListener('scroll', addInViewClass);
 
-    // Añade este evento para cerrar el menú cuando se hace clic en cualquier enlace del menú
-    const mobileNavLinks = document.querySelectorAll('.header-nav a');
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', () => {
+        function toggleMobileNav() {
             const headerNav = document.getElementById('header-nav');
-            headerNav.classList.remove('active');
-        });
-    });
+            headerNav.classList.toggle('active');
+        }
 
+        // Añade este evento para cerrar el menú cuando se hace clic en cualquier enlace del menú
+        const mobileNavLinks = document.querySelectorAll('.header-nav a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const headerNav = document.getElementById('header-nav');
+                headerNav.classList.remove('active');
+            });
+        });
     </script>
 </body>
 </html>
