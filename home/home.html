@@ -35,7 +35,7 @@ function handleCommand(event) {
         const command = input.value.trim().toLowerCase();
 
         if (command === "start") {
-            window.location.href = "index.html";
+            window.location.href = "../index.html";
         } else if (command === "downloads") {
             window.location.href = "https://github.com/AudiForze";
         } else {
@@ -43,7 +43,7 @@ function handleCommand(event) {
             console.log("Command not recognized:", command);
         }
 
-        input.value = ''; // Clear input
+        input.value = ''; 
     }
 }
     </script>
