@@ -1,0 +1,89 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+  background-color: #0f0f0f;
+  color: #ffffff;
+}
+
+.terminal {
+  width: 80%;
+  max-width: 600px;
+  margin: 50px auto;
+  border: 2px solid #00ff00;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.terminal-header {
+  background-color: #111111;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.terminal-icon {
+  width: 10px;
+  height: 10px;
+  background-color: #ffcc00;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.terminal-title {
+  flex-grow: 1;
+  font-size: 14px;
+}
+
+.terminal-buttons {
+  display: flex;
+}
+
+.terminal-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 5px;
+  background-color: #27c93f;
+}
+.terminal-button2 {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 5px;
+  background-color: #ffbd2e;
+}
+.terminal-button3 {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 5px;
+  background-color: #ff5f56;
+}
+
+.terminal-body {
+  padding: 10px;
+}
+
+.terminal-input {
+  background-color: #111111;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.terminal-prompt {
+  color: #00ff00;
+  margin-right: 5px;
+}
+
+.terminal-command {
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  font-family: monospace;
+  font-size: 14px;
+  width: 100%;
+  outline: none;
+}

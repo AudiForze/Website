@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal</title>
+    <link rel="icon" href="/img/ter.ico" type="image/x-icon">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <div class="terminal">
+        <div class="terminal-header">
+            <span class="terminal-icon"></span>
+            <span class="terminal-title">Terminal</span>
+            <span class="terminal-buttons">
+                <span class="terminal-button"></span>
+                <span class="terminal-button2"></span>
+                <span class="terminal-button3"></span>
+            </span>
+        </div>
+        <div class="terminal-body">
+            <p>Bienvenido a mi portafolio</p>
+            <p>Escribe el comando 'start' para comenzar</p>
+        </div>
+        <div class="terminal-input">
+            <span class="terminal-prompt">$</span>
+            <input type="text" class="terminal-command" placeholder="Type a command..." onkeydown="handleCommand(event)">
+        </div>
+    </div>
+
+    <script>
+        function handleCommand(event) {
+            if (event.key === "Enter") {
+                const input = document.querySelector('.terminal-command');
+                const command = input.value.trim();
+
+                if (command.toLowerCase() === "start") {
+                    window.location.href = "/index.html";
+                } else {
+                    // Handle other commands here
+                    console.log("Command not recognized:", command);
+                }
+
+                input.value = ''; // Clear input
+            }
+        }
+    </script>
+</body>
+</html>

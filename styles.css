@@ -1,0 +1,88 @@
+
+
+.header-nav a {
+    color: #ececec; /* Color gris */
+    text-decoration: none;
+    font-size: 16px; /* Tamaño de letra más grande */
+    transition: color 0.3s; /* Transición suave del color */
+}
+
+
+
+.header-nav a:hover {
+    color: rgb(56, 218, 247); /* Cambiar el color a blanco cuando el cursor está sobre el enlace */
+}
+
+/* Reset de estilos */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Estilos del encabezado */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 85px;
+    padding: 0 20px;
+    
+}
+
+.header-logo {
+    flex: 1;
+}
+
+.header-logo svg {
+    fill: white;
+}
+
+.header-nav {
+    flex: 2;
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+
+
+/* Estilos de la sección principal */
+.home-section {
+    background-color: rgba(0, 0, 0, 0.8); /* Color de fondo con transparencia */
+    padding: 100px 0; /* Espacio de relleno superior e inferior */
+    text-align: center;
+    margin-top: 20px; /* Espacio adicional entre el encabezado y la sección principal */
+}
+
+.home-content h1 span {
+    color: #54ACC9; /* Cambiar el color de la palabra "Portafolio" a azul */
+}
+
+
+.home-content {
+    color: white;
+}
+
+.home-content h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.home-content p {
+    font-size: 18px;
+    line-height: 1.5;
+}

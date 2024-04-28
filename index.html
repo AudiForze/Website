@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="icon" href="img/red.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos de la imagen */
+
+        .background-image {
+            position: relative;
+            height: 400px; /* Ajusta la altura de la imagen según tu diseño */
+            background-image: url('/img/fondo.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-top: 20px; /* Espacio adicional entre el encabezado y la imagen */
+        }
+
+        /* Estilos de la sombra */
+        .shadow-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Color de fondo con transparencia */
+        }
+
+        
+
+        /* Estilos del contenido de la sección principal */
+        .home-content {
+            position: relative;
+            z-index: 1; /* Asegura que el contenido esté por encima de la sombra */
+            color: white;
+            text-align: center;
+            padding: 100px 40px; /* Espacio de relleno superior e inferior */
+        }
+
+        .about-me h2 {
+            text-align: center;
+            padding: 100px 0px;
+            font-size: 24px;
+            justify-content: center;
+        }
+
+        /* Animación para el texto de bienvenida */
+        .home-content h1,
+        .home-content p {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .home-content h1 span {
+            color: #54ACC9;
+        }
+
+        /* Animación para mostrar el texto cuando se desplaza a la vista */
+        .home-content.in-view h1,
+        .home-content.in-view p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+                /* Estilos de las imágenes */
+        .animated-image {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .animated-image.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* Estilos de la sección "Sobre Mí" */
+                .main .sobre-mi {
+            min-height: 100vh;
+            padding: 0rem 0;
+            background: #000000;
+            color: #000000;
+            margin-bottom: 0rem;
+        }
+
+        .main .sobre-mi .contenedor-sobre-mi .texto {
+            padding: 1.5rem 0;
+            background: #101010;
+            color: red;
+            font-family: monospace, Arial;
+            width: 70%;
+            min-height: 27.5rem;
+            margin: 0 auto;
+            border-radius: 0.625rem;
+        }
+
+        .main .sobre-mi .contenedor-sobre-mi .texto #pow-txt {
+            display: none;
+            color: #e3e3e3;
+            font-weight: 100;
+        }
+
+        .main .sobre-mi .contenedor-sobre-mi .texto .direccion {
+            margin-bottom: 1rem;
+        }
+
+        .main .sobre-mi .contenedor-sobre-mi .texto #pow-txt {
+            margin-bottom: 1rem;
+        }
+
+        .main .sobre-mi .contenedor-sobre-mi .texto .descripcion {
+            color: grey;
+            font-weight: 100;
+            line-height: 1.5;
+        }
+
+        .main .sobre-mi .contenedor-sobre-mi .texto p {
+            width: 90%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo">
+            <a href="/" aria-label="Hyper logo">
+                <svg width="31" height="23" fill="white">
+                    <path fill-rule="evenodd" d="M17.1174211 19.0117914h13.1672471v2.478735H17.1174211v-2.478735zm-4.0395495-6.4227662L1.48488295 22.6880738l3.60814232-8.8382964L0 10.5193725 11.5929886.421279 7.66861079 9.82364851l5.40926081 2.76537669z"></path>
+                </svg>
+            </a>
+        </div>
+        <nav class="header-nav">
+            <a href="/compe.html">Competencias</a>
+            <a href="#sobre-mi">About me</a>
+            <a href="https://github.com/vercel/hyper" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="/#installation">Download</a>
+            <a href="/Blog/blog.html">Blog</a>
+        </nav>
+    </header>
+
+    <div class="background-image">
+        <div class="shadow-overlay"></div>
+        <section class="home-content">
+            <h1>Bienvenido a mi <span>portafolio</span></h1>
+            <p>Trader por profesión, Hacker por pasión</p>
+        </section>
+    </div>
+
+  
+    <header class="header">
+        <!-- Código de tu encabezado aquí -->
+    </header>
+
+
+        <!-- Código de tu sección de contenido principal aquí -->
+    </div>
+
+    <main class="main">
+        <section class="sobre-mi">
+            <div class="contenedor contenedor-sobre-mi">
+                <h2 class="titulo" id="sobre-mi">Sobre mí</h2>
+                <div class="texto">
+                    <p class="direccion"><span class="dir">C: portafolio/physco3/about/me</span></p>
+                    <p class="descripcion" id="terminal"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Otras secciones de tu página aquí -->
+    </main>
+
+    <script>
+        const text = `
+            Bienvenido: 
+
+           Soy conocido como Physco3, conocido principalmente por proyectos y desarrollos como scripts y reverse_shell para windows y por programar por pasion. No soy ningun Experto en la informatica pero me he destacado porque la misma ha sido como un refugio para mi desde los 6-7 años cuando todo comenzo. Empece programando en java durante mis primeros años pero luego cambie a html y css en curso de hardvare llamda CS50 y entonces conoci python con quien actualmente continuo y quien me ayudo a mejorar en el mundo del pententing creado scripts de automatizacion. Muchas info no? ...
+        `;
+
+        const terminalElement = document.getElementById('terminal');
+        let index = 0;
+
+        function writeText() {
+            terminalElement.textContent += text[index++];
+            if (index < text.length) {
+                setTimeout(writeText, 10); 
+            }
+        }
+
+        writeText();
+
+         // Agrega una clase al contenido principal cuando está en la vista
+         function isInView(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        function addInViewClass() {
+            const content = document.querySelector('.home-content');
+            if (isInView(content)) {
+                content.classList.add('in-view');
+            }
+        }
+
+        addInViewClass();
+        window.addEventListener('scroll', addInViewClass);
+    </script>
+
+</body>
+</html>

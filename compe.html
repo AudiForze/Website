@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos de la sección "Proyectos" */
+        .main .proyectos {
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .main .proyectos .contenedor-proyectos {
+            display: grid;
+            justify-content: center;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-column-gap: 2rem;
+            grid-row-gap: 2rem;
+        }
+
+        .main .proyectos .contenedor-proyectos .proyecto {
+            margin: auto;
+            width: 250px;
+            height: 350px;
+        }
+
+        .main .proyectos .contenedor-proyectos .proyecto .info {
+            padding: 1rem 0.5rem;
+            height: 10.625rem;
+            background: #ffffff;
+            color: #000000;
+            border: 0.125rem solid #969a97;
+        }
+
+        .main .proyectos .contenedor-proyectos .proyecto .info h4 {
+            text-align: left;
+            margin-bottom: 2.5rem;
+            font-size: 1.3rem;
+        }
+
+        .main .proyectos .contenedor-proyectos .proyecto .info h5 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: normal;
+        }
+
+        .main .proyectos .contenedor-proyectos .proyecto .info p {
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .main .proyectos .contenedor-proyectos .proyecto .info p .html {
+            color: #854723;
+        }
+
+        .main .proyectos .contenedor-proyectos .proyecto .info p .css {
+            color: #0571BA;
+        }
+
+        .main .proyectos .contenedor-proyectos .proyecto .info p .javascript {
+            color: #958120;
+        }
+
+        .main .proyectos .contenedor-proyectos .proyecto .info p .bootstrap {
+            color: #623F91;
+        }
+
+        .main .proyectos .contenedor-proyectos .proyecto .info p .sass {
+            color: #CC6699;
+        }
+
+        .main .proyectos .contenedor-proyectos .proyecto .info .foto img {
+            width: 100%;
+            height: 11.25rem;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    <section class="proyectos">
+        <h2 class="titulo" id="proyectos">Algunos proyectos realizados</h2>
+        <div class="contenedor contenedor-proyectos">
+            <div class="proyecto">
+                <div class="foto">
+                    <a href="https://geraldogonzalez.github.io/practicas/airbnb-clon/index.html" target="_blank"><img src="/img/fondo.jpg" alt=""></a>
+                </div>
+                <div class="info">
+                    <h4>MiViaje.com</h4>
+                    <h5>Tecnologías utilizadas:</h5>
+                    <p><span class="html">HTML5</span> - <span class="css">CSS3</span> - <span class="javascript">JavaScript</span></p>
+                </div>
+            </div>
+
+            <div class="proyecto">
+                <div class="foto">
+                    <a href="https://geraldogonzalez.github.io/practicas/cafe/index.html" target="_blank"><img src="/img/fondo.jpg" alt=""></a>
+                </div>
+                <div class="info">
+                    <h4>Cafe Milanello</h4>
+                    <h5>Tecnologías utilizadas:</h5>
+                    <p><span class="html">HTML5</span> - <span class="css">CSS3</span> - <span class="javascript">JavaScript</span></p>
+                </div>
+            </div>
+
+            <div class="proyecto">
+                <div class="foto">
+                    <a href="https://geraldogonzalez.github.io/practicas/blog/index.html" target="_blank"><img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.es%2Ffotos-vectores-gratis%2Fcolor&psig=AOvVaw1xA9Po6PiRysV1rpmClDwb&ust=1713831603843000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNiZlOHG1IUDFQAAAAAdAAAAABAE" alt=""></a>
+                </div>
+                <div class="info">
+                    <h4>Blog</h4>
+                    <h5>Tecnologías utilizadas:</h5>
+                    <p><span class="html">HTML5</span> - <span class="css">CSS3</span> - <span class="javascript">JavaScript</span> - <span class="sass">Sass</span></p>
+                </div>
+            </div>
+
+            <div class="proyecto">
+                <div class="foto">
+                    <a href="/img/fondo.jpg" target="_blank"><img src="/img/fondo.jpg" alt=""></a>
+                </div>
+                <div class="info">
+                    <h4>Virtual Shop</h4>
+                    <div class="tech">
+                        <h5>Tecnologías utilizadas:</h5>
+                        <p><span class="html">HTML5</span> - <span class="css">
