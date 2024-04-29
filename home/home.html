@@ -21,6 +21,8 @@
         <div class="terminal-body">
             <p>Bienvenido a mi portafolio</p>
             <p>Escribe el comando 'start' para comenzar</p>
+            <p>‎ </p>
+            <p>Si estas en celular escribe 'cell' para comenzar</p>
         </div>
         <div class="terminal-input">
             <span class="terminal-prompt">$</span>
@@ -28,7 +30,7 @@
         </div>
     </div>
 
-    <script>
+<script>
 function handleCommand(event) {
     if (event.key === "Enter") {
         const input = document.querySelector('.terminal-command');
@@ -40,6 +42,8 @@ function handleCommand(event) {
             window.location.href = "https://github.com/AudiForze";
         } else if (command === "josue") {
             window.location.href = "https://audiforze.github.io/Website/friend.html";
+        } else if (command === "cell") {
+            window.location.href = "https://audiforze.github.io/Website/cell/index.html";
         } else {
             console.log("Command not recognized:", command);
         }
@@ -47,7 +51,7 @@ function handleCommand(event) {
         input.value = ''; 
     }
 }
+</script>
 
-    </script>
 </body>
 </html>
