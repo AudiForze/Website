@@ -201,6 +201,23 @@
                 headerNav.classList.remove('active');
             });
         });
+
+        // Agrega un evento de clic al icono de hamburguesa para mostrar/ocultar el menú desplegable
+        const mobileNavIcon = document.querySelector('.mobile-nav-icon');
+        mobileNavIcon.addEventListener('click', function(event) {
+            const mobileNav = document.querySelector('.mobile-nav');
+            mobileNav.classList.toggle('active');
+            // Evita que el clic en el icono se propague al documento y cierre el menú
+            event.stopPropagation();
+        });
+
+        // Agrega un evento de clic al menú desplegable para cerrarlo si se hace clic fuera de él
+        document.addEventListener('click', function(event) {
+            const mobileNav = document.querySelector('.mobile-nav');
+            if (mobileNav.classList.contains('active')) {
+                mobileNav.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
