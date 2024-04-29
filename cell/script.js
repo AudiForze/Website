@@ -1,6 +1,12 @@
 function toggleMenu() {
     var menu = document.querySelector('.menu');
-    menu.classList.toggle('open');
+    var isOpen = menu.style.display === 'block';
+    menu.style.display = isOpen ? 'none' : 'block';
+    if (!isOpen) {
+        menu.classList.add('open');
+    } else {
+        menu.classList.remove('open');
+    }
 }
 
 const text = `
