@@ -1,0 +1,166 @@
+.menu.open {
+    animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #000000;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-toggle {
+    cursor: pointer;
+}
+
+.menu {
+    display: none;
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; 
+    
+}
+
+.menu ul li {
+    padding: 10px 0;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.menu ul li a:hover {
+    text-decoration: none;
+    color: rgb(56, 218, 247);
+}
+
+@media screen and (max-width: 768px) {
+    .menu {
+        display: block;
+    }
+
+    .menu ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+/* Estilos de la sección principal */
+.home-section {
+    background-color: rgba(0, 0, 0, 0.8); 
+    padding: 100px 0; 
+    text-align: center;
+    margin-top: 20px; 
+}
+
+.home-content h1 span {
+    color: #54ACC9; 
+}
+
+
+.home-content {
+    color: white;
+}
+
+.home-content h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.home-content p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+.background-image {
+    position: relative;
+    height: 400px; 
+    background-image: url('img/edit.jpg');
+    background-size: cover;
+    background-position: center;
+    margin-top: 20px; 
+}
+       
+.home-content {
+    position: relative;
+    z-index: 1; 
+    color: white;
+    text-align: center;
+    padding: 100px 40px; 
+}
+.main .sobre-mi {
+    min-height: 100vh;
+    padding: 0rem 0;
+    background: #000000;
+    color: #000000;
+    margin-bottom: 0rem;
+}
+
+.main .sobre-mi .contenedor-sobre-mi .texto {
+    padding: 1.5rem 0;
+    background: #101010;
+    color: red;
+    font-family: monospace, Arial;
+    width: 70%;
+    min-height: 27.5rem;
+    margin: 0 auto;
+    border-radius: 0.625rem;
+}
+
+.main .sobre-mi .contenedor-sobre-mi .texto #pow-txt {
+    display: none;
+    color: #e3e3e3;
+    font-weight: 100;
+}
+
+.main .sobre-mi .contenedor-sobre-mi .texto .direccion {
+    margin-bottom: 1rem;
+}
+
+.main .sobre-mi .contenedor-sobre-mi .texto #pow-txt {
+    margin-bottom: 1rem;
+}
+
+.main .sobre-mi .contenedor-sobre-mi .texto .descripcion {
+    color: grey;
+    font-weight: 100;
+    line-height: 1.5;
+}
+
+.main .sobre-mi .contenedor-sobre-mi .texto p {
+    width: 90%;
+    margin: 0 auto;
+}
+
+
