@@ -8,7 +8,11 @@
 </head>
 <body>
     <header>
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <!-- Input de tipo checkbox para controlar el menú de hamburguesa -->
+        <input type="checkbox" id="menu-toggle">
+        <!-- Etiqueta (label) asociada para el botón de hamburguesa -->
+        <label for="menu-toggle" class="menu-toggle">&#9776;</label>
+        <!-- Menú de navegación -->
         <nav class="menu">
             <ul>
                 <li><a href="#">Inicio</a></li>
@@ -39,7 +43,7 @@
                 </div>
             </div>
         </section>
-
+    </main>
 
     <script src="script.js"></script>
 </body>
@@ -51,6 +55,40 @@
     background-size: cover;
     background-position: center;
     margin-top: 20px; 
+}
+
+/* Estilos para el menú de hamburguesa */
+.menu-toggle {
+    cursor: pointer;
+}
+
+.menu {
+    display: none;
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu ul li {
+    padding: 10px 0;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+.menu ul li a:hover {
+    text-decoration: none;
+    color: #54ACC9;
+}
+
+/* Estilos para mostrar el menú cuando el input checkbox está marcado */
+#menu-toggle:checked + .menu {
+    display: block;
 }
 </style>
 </html>
