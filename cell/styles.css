@@ -55,7 +55,7 @@ header {
     color: rgb(56, 218, 247);
 }
 
-/* Estilos generales */
+
 body {
     font-family: Arial, sans-serif;
     background-color: black;
@@ -67,7 +67,7 @@ body {
     margin: 0 auto;
     padding: 0 20px;
 }
-/* Estilos de la sección principal */
+
 .home-section {
     background-color: rgba(0, 0, 0, 0.8); 
     padding: 100px 0; 
