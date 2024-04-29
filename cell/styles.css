@@ -56,7 +56,7 @@ header {
 
 @media screen and (max-width: 768px) {
     .menu {
-        display: block;
+        display: none;
     }
 
     .menu ul {
