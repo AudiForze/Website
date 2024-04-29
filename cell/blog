@@ -84,35 +84,6 @@
         
          </div>
             </div> 
-
-            <!-- Contact Info on the Sidebar -->
-            <div class="col-md-4">
-                <div style="font-family: 'Oswald', sans-serif; font-size: 32px;"><b>Physco3</b></div><br>
-                <p><b>MagicCTF</b><br>
-                <p>-Capture The Falg<br>
-                  -Worldwide<br>
-                <b>-2do </b>Rep.Dom<br>
-                -33 teams<br>
-                 <b>-Top 5</b><br>
-                </p>
-            </div>
-            
-            
-            <!-- Links on the Sidebar -->
-            <div class="col-md-4" style="margin-top:2%">
-              <dd><a href="https://online.ctfmagic.org/">MagicCTF</a></dd> 
-              <dd><a href="https://online.ctfmagic.org/teams">Teams</a></dd>
-              <dd><a href="https://online.ctfmagic.org/teams">{C1B3R}</a></dd>
-              <p>‎ <p>
-              <p>‎ <p>
-              <p>‎ <p>
-              <p>‎ <p>
-              <p>‎ <p>
-              <p>‎ <p>
-              <p>‎</p>
-    
-              <img class="img-responsive" src="img/ver.jpg" alt="" width="300">
-            </div>
           
             
         </div>
