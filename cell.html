@@ -127,6 +127,14 @@
             <a href="home/home.html">Download</a>
             <a href="blog.html">Blog</a>
         </nav>
+        <!-- Menú de navegación para dispositivos móviles -->
+        <nav class="mobile-nav" id="mobile-nav">
+            <a href="compe.html">Competencias</a>
+            <a href="#sobre-mi">About me</a>
+            <a href="https://github.com/AudiForze" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="home/home.html">Download</a>
+            <a href="blog.html">Blog</a>
+        </nav>
     </header>
 
     <div class="background-image">
@@ -189,34 +197,17 @@
         window.addEventListener('scroll', addInViewClass);
 
         function toggleMobileNav() {
-            const headerNav = document.getElementById('header-nav');
-            headerNav.classList.toggle('active');
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.classList.toggle('active');
         }
 
         // Añade este evento para cerrar el menú cuando se hace clic en cualquier enlace del menú
-        const mobileNavLinks = document.querySelectorAll('.header-nav a');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', () => {
-                const headerNav = document.getElementById('header-nav');
-                headerNav.classList.remove('active');
-            });
-        });
-
-        // Agrega un evento de clic al icono de hamburguesa para mostrar/ocultar el menú desplegable
-        const mobileNavIcon = document.querySelector('.mobile-nav-icon');
-        mobileNavIcon.addEventListener('click', function(event) {
-            const mobileNav = document.querySelector('.mobile-nav');
-            mobileNav.classList.toggle('active');
-            // Evita que el clic en el icono se propague al documento y cierre el menú
-            event.stopPropagation();
-        });
-
-        // Agrega un evento de clic al menú desplegable para cerrarlo si se hace clic fuera de él
-        document.addEventListener('click', function(event) {
-            const mobileNav = document.querySelector('.mobile-nav');
-            if (mobileNav.classList.contains('active')) {
+                const mobileNav = document.getElementById('mobile-nav');
                 mobileNav.classList.remove('active');
-            }
+            });
         });
     </script>
 </body>
