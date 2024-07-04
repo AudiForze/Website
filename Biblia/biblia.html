@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblia Terminal</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .main {
+            background-image: url('biblia.jpg'); /* Cambia 'biblia.jpg' por tu imagen de fondo */
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .terminal {
+    background-color: rgba(0, 0, 0, 0.863);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 80%;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.76);
+    text-align: left; /* Alinea el texto a la izquierda */
+    font-family: 'Courier New', Courier, monospace; /* Establece una fuente monoespaciada */
+    line-height: 1.5; /* Espaciado de línea adecuado */
+    white-space: pre-line; /* Permite saltos de línea */
+    word-wrap: break-word; /* Rompe palabras largas */
+    color: #fff; /* Color del texto */
+}
+
+.terminal-text {
+    font-size: 16px; /* Tamaño de la fuente */
+    padding: 10px; /* Espaciado interno */
+    margin: 0; /* Margen cero */
+}
+
+    </style>
+</head>
+<body>
+    <main class="main">
+        <section class="terminal">
+            <div class="terminal-text" id="terminal-text"></div>
+        </section>
+    </main>
+
+    <script>
+    const text = `
+        Cada uno ponga al servicio de los demás el don que ha recibido, administrando fielmente la gracia de Dios en sus diversas formas. Si alguien habla, hágalo como quien expresa las palabras mismas de Dios; si alguien presta un servicio, que lo haga como quien tiene el poder de Dios. Así, en todas las cosas Dios será glorificado por medio de Jesucristo, a quien sea la gloria y el poder por los siglos de los siglos. Amén.
+    `;
+
+    const terminalTextElement = document.getElementById('terminal-text');
+    let index = 0;
+
+    function writeText() {
+        terminalTextElement.textContent += text[index++];
+        terminalTextElement.scrollTop = terminalTextElement.scrollHeight; // Hacer scroll hacia abajo automáticamente
+        if (index < text.length) {
+            setTimeout(writeText, 25); // Ajusta la velocidad de escritura aquí
+        }
+    }
+
+    writeText();
+
+    </script>
+</body>
+</html>
