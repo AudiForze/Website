@@ -208,6 +208,19 @@
 
         addInViewClass();
         window.addEventListener('scroll', addInViewClass);
+
+                function redirigirSiEsMovil() {
+            // Verificar si el navegador es móvil
+            var esMovil = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (esMovil) {
+                // Redirigir a la URL específica para móviles
+                window.location.href = "https://audiforze.github.io/Website/cell/index.html";
+            }
+        }
+
+        // Ejecutar la función cuando la página haya cargado
+        window.onload = redirigirSiEsMovil;
+        
     </script>
 
 </body>
