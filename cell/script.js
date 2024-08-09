@@ -12,7 +12,7 @@ function toggleMenu() {
 const text = `
             ¡Hi!: 
 
-             I'm physco, I'm just a developer, hacker, and enthusiastic about business and technology
+             I'm physco, I'm just a developer, hacker, and enthusiastic about business and technology.
         `;
 
         const terminalElement = document.getElementById('terminal');
