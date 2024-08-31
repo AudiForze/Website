@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Physlab | Pages | GreenHorn</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+</head>
+<body id="top">
+
+<div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');"> 
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear"> 
+      <div id="logo" class="fl_left">
+        <h1><a href="../index.html">Physlab</a></h1>
+      </div>
+      <nav id="mainav" class="fl_right">
+        <ul class="clear">
+          <li><a href="../index.html">Home</a></li>
+          <li class="active"><a class="drop" href="#">Pages</a>
+            <ul>
+              <li><a href="pages/gallery.html">Gallery</a></li>
+              <li><a href="https://audiforze.github.io/Website/home/home.html">Home Oficial</a></li>
+              <li><a href="/pages/sidebar-left.html">New Blog</a></li>
+              <li><a href="https://audiforze.github.io/Website/blogp/blog.html">Blog</a></li>
+              <li><a href="https://audiforze.github.io/Website/LastWork/UnProyectoUnPocoPersonal">Knowledge</a></li>
+            </ul>
+            <li><a href="https://github.com/AudiForze">Github</a></li>
+      </nav>
+    </header>
+  </div>
+
+  <div class="wrapper row2">
+    <div id="breadcrumb" class="hoc clear"> 
+      <ul>
+        <li><a href="#">physlab</a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">GreenHorng</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+     
+    </header>
+  </div>
+
+</div>
+
+<div class="wrapper row3">
+  <main class="hoc container clear"> 
+    
+    <div class="content"> 
+      <h1>Maquina GreenHorn (HackTheBox)</h1>
+      <img class="imgr borderedbox inspace-5" src="../images/demo/Galeria/imgl.png" alt="">
+      <p>La máquina <a href="https://www.hackthebox.com/machines/greenhorn">Greenhorn</a> de Hack The Box es una máquina Linux clasificada como "fácil". En el proceso de enumeración, se descubren los puertos HTTP (80), SSH (22), y otro servicio en el puerto 3000. Al acceder al sitio web, te encuentras con una página de inicio de sesión que utiliza la versión 4.7.18 de Pluck, un CMS vulnerable.</p>
+      <p>El exploit principal utilizado para obtener acceso inicial es a través de la vulnerabilidad CVE-2023-50564 en Pluck 4.7.18. Esta vulnerabilidad permite la ejecución de código remoto. Para explotar esta falla, se usa una prueba de concepto disponible en GitHub</p>
+      <img class="imgl borderedbox inspace-5" src="../images/demo/Galeria/htb.png" alt="">
+      <p>Yo he creado una guía paso a paso sobre cómo resolver esta máquina, desde que activamos la máquina, el proceso de enumeración de puertos y la resolución de la misma.</p>
+      <p>Ahora vamos a ver una tabla con la información general de la máquina, como los puertos, servicios, y lenguajes de programación.</p>
+      <p>‎ </p>
+      <h1>Tabla Informativa</h1>
+      <div class="scrollable">
+        <table>
+          <thead>
+              <tr>
+                  <th>Puerto</th>
+                  <th>Servicio</th>
+                  <th>Descripción</th>
+                  <th>Lenguaje de Programación</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>22</td>
+                  <td>SSH</td>
+                  <td>Acceso remoto seguro</td>
+                  <td>---</td>
+              </tr>
+              <tr>
+                  <td>80</td>
+                  <td>HTTP</td>
+                  <td>Sitio web principal</td>
+                  <td>PHP (Pluck CMS)</td>
+              </tr>
+              <tr>
+                  <td>3000</td>
+                  <td>Aplicación Web</td>
+                  <td>Puerto de la aplicación personalizada</td>
+                  <td>JavaScript (posiblemente Node.js)</td>
+              </tr>
+          </tbody>
+      </table>      
+      </div>
+      <div id="comments">
+        <h2>Notas</h2>
+        <ul>
+          <li>
+            <article>
+              <header>
+                <figure class="avatar"><img src="../images/demo/avatar.png" alt=""></figure>
+                <address>
+                By <a href="#">Physco</a>
+                </address>
+                <time datetime="2045-04-06T08:15+00:00">Saturday, 31<sup>th</sup> August 2024@5:53:00</time>
+              </header>
+              <div class="comcont">
+                <p>Este documento está hecho con fines educativos y en entornos controlados, y está dirigido a personas con conocimientos sólidos de hacking, redes y programación. Se recomienda no hacer esta máquina solo con lo que yo enseño, ya que si simplemente copias el proceso, tu aprendizaje sería nulo.</p>
+              </div>
+            </article>
+          </li>
+          <li>
+            <article>
+              <header>
+                <figure class="avatar"><img src="../images/demo/avatar.png" alt=""></figure>
+                <address>
+                By <a href="#">Physco</a>
+                </address>
+                <time datetime="2045-04-06T08:15+00:00">Saturday, 31<sup>th</sup> August 2024@6:12:00</time>
+              </header>
+              <div class="comcont">
+                <img src="https://cdn.discordapp.com/attachments/817433018280443955/1279452099037626430/image.png?ex=66d47e1f&is=66d32c9f&hm=de7aebed294f0067d94d53d8b6c286ac7a34e6e36e5e77c54e8a03208822b9c3&" alt="">
+              </div>
+            </article>
+          </li>
+          <li>
+            <article>
+              <header>
+                <figure class="avatar"><img src="../images/demo/avatar.png" alt=""></figure>
+                <address>
+                By <a href="#">physco</a>
+                </address>
+                <time datetime="2045-04-06T08:15+00:00">Saturday, 31<sup>th</sup> August 2024@6:36:00</time>
+              </header>
+              <div class="comcont">
+                <p>Este es el link para entrar al <a href="https://excalidraw.com/#json=PeZmGfbIr1Wa4ZJXeLc8i,2GUEquoQGtjXxEPtxXVD_w">Diagrama</a></p>
+                <p>Este es el link para entrar al <a href="https://github.com/AudiForze/GreenHorn/tree/main">Documento</a></p>
+              </div>
+            </article>
+          </li>
+        </ul>
+<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
+
+<script src="/scripts/jquery.min.js"></script>
+<script src="/scripts/jquery.backtotop.js"></script>
+<script src="/scripts/jquery.mobilemenu.js"></script>
+</body>
+</html>
