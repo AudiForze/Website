@@ -22,7 +22,7 @@
             <p>Bienvenido a mi portafolio</p>
             <p>Escribe el comando 'start' para comenzar</p>
             <p>‎ </p>
-            <p>Si estas en celular escribe 'cell' para comenzar</p>
+            <p>Si quieres ver el antiguo sitio puedes escrbir old-version</p>
         </div>
         <div class="terminal-input">
             <span class="terminal-prompt">$</span>
@@ -37,19 +37,21 @@ function handleCommand(event) {
         const command = input.value.trim().toLowerCase();
 
         if (command === "start") {
-            window.location.href = "https://audiforze.github.io/Website/index.html";
+            window.location.href = "https://audiforze.github.io/Website/Physlab/index.html";
         } else if (command === "downloads") {
             window.location.href = "https://github.com/AudiForze";
         } else if (command === "josue") {
             window.location.href = "https://audiforze.github.io/Website/friend.html";
         } else if (command === "cell") {
-            window.location.href = "https://audiforze.github.io/Website/cell/index.html";
+            window.location.href = "https://audiforze.github.io/Website/Physlab/index.html";
         } else if (command === "wichsystem") {
             window.location.href = "https://github.com/AudiForze/WichSystem.py";
         } else if (command === "login") {
             window.location.href = "https://github.com/AudiForze/Login";
         } else if (command === "Mia") {
             window.location.href = "https://github.com/AudiForze/Mia--virtual-assistant-";
+        } else if (command === "old-version") {
+            window.location.href = "https://audiforze.github.io/Website/index.html";
         } else {
             console.log("Command not recognized:", command);
         }
