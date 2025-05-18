@@ -4,23 +4,82 @@
 <title>Physlab | Home | Gallery</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="../styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<link href="/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 </head>
 <body id="top">
+<style>
+/* Agrega esto a tu archivo layout.css */
+.img-overlay-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  overflow: hidden; /* Para que el zoom no se salga */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.7s forwards;
+}
+
+.img-overlay-container img {
+  display: block;
+  width: 100%;
+  opacity: 0.5;
+  transition: opacity 0.3s, transform 0.3s;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.img-overlay-container .img-overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  background: rgba(0,0,0,0.7);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 1em;
+  text-align: center;
+  pointer-events: none;
+  width: 80%;
+  opacity: 1;
+  transition: background 0.3s, opacity 0.3s;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  letter-spacing: 1px;
+  line-height: 1.3;
+}
+
+.img-overlay-container:hover img {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.img-overlay-container:hover .img-overlay-text {
+  background: rgba(0,0,0,0.85);
+  opacity: 1;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
 
 <div class="bgded overlay" style="background-image:url('../images/demo/backgrounds/01.png');"> 
   <div class="wrapper row1">
     <header id="header" class="hoc clear"> 
       <div id="logo" class="fl_left">
-        <h1><a href="https://audiforze.github.io/Website/Physlab/index.html">Physlab</a></h1>
+        <h1><a href="../index.html">Physlab</a></h1>
       </div>
       <nav id="mainav" class="fl_right">
         <ul class="clear">
-          <li><a href="https://audiforze.github.io/Website/Physlab/index.html">Home</a></li>
+          <li><a href="../index.html">Home</a></li>
           <li class="active"><a class="drop" href="#">Pages</a>
             <ul>
+              <li><a href="pages/gallery.html">Gallery</a></li>
               <li><a href="https://audiforze.github.io/Website/home/home.html">Home Oficial</a></li>
-              <li><a href="https://audiforze.github.io/Website/Physlab/pages/domotica.html">Ultimo Blog</a></li>
+              <li><a href="https://audiforze.github.io/Website/blogp/blog.html">New Blog</a></li>
               <li><a href="https://audiforze.github.io/Website/blogp/blog.html">Blog</a></li>
               <li><a href="https://audiforze.github.io/Website/LastWork/UnProyectoUnPocoPersonal">Knowledge</a></li>
             </ul>
@@ -49,18 +108,102 @@
         <figure>
           <header class="heading">Proyectos & Maquinas</header>
           <ul class="nospace clear">
-            <li class="one_quarter first"><a href="https://audiforze.github.io/Website/blog.html"><img src="../images/demo/Galeria/subgale/compe.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/Galeria/subgale/gale.png" alt=""></a></li>
-            <li class="one_quarter"><a href="https://audiforze.github.io/Website/BackToHackingGame/index.html"><img src="../images/demo/Galeria/subgale/hacking.png" alt=""></a></li>
-            <li class="one_quarter"><a href="https://shimmer-sodium-faa.notion.site/Mia-Asistente-virtual-y-ChatBot-721e7907a2e5487996486abbcffada9b"><img src="../images/demo/Galeria/mia.png" alt=""></a></li>
-            <li class="one_quarter first"><a href="https://shimmer-sodium-faa.notion.site/Python-df56f93c55dd4d9b8dca1f2c403ce8db"><img src="../images/demo/Galeria/subgale/python.jpeg" alt=""></a></li>
-            <li class="one_quarter"><a href="https://shimmer-sodium-faa.notion.site/Redes-Neuronales-70423c0cabcd4058bf9f5b37a7043224"><img src="../images/demo/Galeria/redes.png" alt=""></a></li>
-            <li class="one_quarter"><a href="https://github.com/AudiForze/WichSystem.py"><img src="../images/demo/Galeria/subgale/vacio.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/Galeria/subgale/linux.png" alt=""></a></li>
-            <li class="one_quarter first"><a href="#"><img src="../images/demo/Galeria/subgale/chatbot.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/Galeria/subgale/server.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/Galeria/subgale/no.png" alt=""></a></li>
-            <li class="one_quarter"><a href="#"><img src="../images/demo/Galeria/subgale/no.png" alt=""></a></li>
+            <li class="one_quarter first">
+              <div class="img-overlay-container">
+                <a href="https://audiforze.github.io/Website/blog.html">
+                  <img src="../images/demo/Galeria/subgale/compe.png" alt="">
+                  <span class="img-overlay-text">MAGIC CTF</span>
+                </a>
+              </div>
+            </li>
+            <li class="one_quarter">
+              <div class="img-overlay-container">
+                <a href="#">
+                  <img src="../images/demo/Galeria/subgale/gale.png" alt="">
+                  <span class="img-overlay-text">Galeria</span>
+                </a>
+              </div>
+            </li>
+            <li class="one_quarter">
+              <div class="img-overlay-container">
+                <a href="https://github.com/AudiForze/EspSOC">
+                  <img src="../images/demo/Galeria/subgale/hacking.png" alt="">
+                  <span class="img-overlay-text">EspSOC</span>
+                </a>
+              </div>
+            </li>
+            <li class="one_quarter">
+              <div class="img-overlay-container">
+                <a href="https://shimmer-sodium-faa.notion.site/Mia-Asistente-virtual-y-ChatBot-721e7907a2e5487996486abbcffada9b">
+                  <img src="../images/demo/Galeria/mia.png" alt="">
+                  <span class="img-overlay-text">Mia - Asistente Virtual</span>
+                </a>
+              </div>
+            </li>
+            <li class="one_quarter first">
+              <div class="img-overlay-container">
+                <a href="https://shimmer-sodium-faa.notion.site/Python-df56f93c55dd4d9b8dca1f2c403ce8db">
+                  <img src="../images/demo/Galeria/subgale/python.jpeg" alt="">
+                  <span class="img-overlay-text">Python</span>
+                </a>
+              </div>
+            </li>
+            <li class="one_quarter">
+              <div class="img-overlay-container">
+                <a href="https://shimmer-sodium-faa.notion.site/Redes-Neuronales-70423c0cabcd4058bf9f5b37a7043224">
+                  <img src="../images/demo/Galeria/redes.png" alt="">
+                  <span class="img-overlay-text">Redes Neuronales</span>
+                </a>
+              </div>
+            </li>
+            <li class="one_quarter">
+              <div class="img-overlay-container">
+                <a href="https://github.com/AudiForze/WichSystem.py">
+                  <img src="../images/demo/Galeria/subgale/vacio.png" alt="">
+                  <span class="img-overlay-text">WichSystem.py</span>
+                </a>
+              </div>
+            </li>
+            <li class="one_quarter">
+              <div class="img-overlay-container">
+                <a href="https://audiforze.github.io/Website/BackToHackingGame/index.html">
+                  <img src="../images/demo/Galeria/subgale/linux.png" alt="">
+                  <span class="img-overlay-text">BackToHacking</span>
+                </a>
+              </div>
+            </li>
+            <li class="one_quarter first">
+              <div class="img-overlay-container">
+                <a href="https://audiforze.github.io/Website/Physlab/pages/domotica.html">
+                  <img src="../images/demo/Galeria/subgale/chatbot.png" alt="">
+                  <span class="img-overlay-text">Domotica</span>
+                </a>
+              </div>
+            </li>
+            <li class="one_quarter">
+              <div class="img-overlay-container">
+                <a href="https://audiforze.github.io/Website/Physlab/pages/full-width.html">
+                  <img src="../images/demo/Galeria/subgale/server.png" alt="">
+                  <span class="img-overlay-text">GreenHorn</span>
+                </a>
+              </div>
+            </li>
+            <li class="one_quarter">
+              <div class="img-overlay-container">
+                <a href="https://audiforze.github.io/Website/Physlab/pages/sidebar-left.html">
+                  <img src="../images/demo/Galeria/subgale/no.png" alt="">
+                  <span class="img-overlay-text">Blog MIA</span>
+                </a>
+              </div>
+            </li>
+            <li class="one_quarter">
+              <div class="img-overlay-container">
+                <a href="https://audiforze.github.io/Website/LastWork/UnProyectoUnPocoPersonal">
+                  <img src="../images/demo/Galeria/subgale/no.png" alt="">
+                  <span class="img-overlay-text">Aporte</span>
+                </a>
+              </div>
+            </li>
           </ul>
           <figcaption>Este es un proyecto estilo galeria donde ire subiendo algunos proyectos y maquinas que voy haciendo</figcaption>
         </figure>
@@ -85,8 +228,8 @@
 
 
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
-<script src="../scripts/jquery.min.js"></script>
-<script src="../scripts/jquery.backtotop.js"></script>
-<script src="../scripts/jquery.mobilemenu.js"></script>
+<script src="/scripts/jquery.min.js"></script>
+<script src="/scripts/jquery.backtotop.js"></script>
+<script src="/scripts/jquery.mobilemenu.js"></script>
 </body>
 </html>
