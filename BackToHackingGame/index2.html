@@ -236,12 +236,28 @@
      </section>
 
 
-     <section class="blog-post section" id="schedule" style="background: var(--about-bg-color);">
+     <section class="schedule section" id="schedule">
+        <style>
+            #schedule h2, #schedule h3, #schedule h4 {
+                color: var(--white-color) !important;
+            }
+            #schedule p, 
+            #schedule li p, 
+            #schedule blockquote p,
+            #schedule .list-unstyled li {
+                color: var(--white-color) !important;
+            }
+            /* Mantener el h6 con el color gris para el subtítulo */
+            #schedule h6 {
+                color: var(--gray-color) !important;
+            }
+        </style>
+
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-12 text-center mb-5">
                     <h6 data-aos="fade-up">Innovación en Conocimiento</h6>
-                    <h2 class="text-dark" data-aos="fade-up" data-aos-delay="200">Automatización Inteligente con n8n + Supabase + IA</h2>
+                    <h2 data-aos="fade-up" data-aos-delay="200">Automatización Inteligente con n8n + Supabase + IA</h2>
                 </div>
     
                 <div class="col-lg-10 mx-auto col-12" data-aos="fade-up" data-aos-delay="300">
@@ -252,33 +268,33 @@
 
                     <h4 class="mt-4">1. Recepción de archivos vía Webhook</h4>
                     <p>El flujo cuenta con dos puntos de entrada:</p>
-                    <ul>
+                    <ul class="text-white">
                         <li><p>✔ <code>/upload-file</code></p></li>
                         <li><p>✔ <code>/upload-file2</code></p></li>
                         <li><p>✔ <code>/upload-file</code> (ramificado para imágenes o documentos)</p></li>
                     </ul>
-                    <p>Estos endpoints permiten enviar directamente un archivo en **Base64**, el cual es decodificado gracias al nodo `Decode Base64 File` y `Decode Base64 File1`.</p>
+                    <p>Estos endpoints permiten enviar directamente un archivo en **Base64**, el cual es decodificado gracias al nodo <code>Decode Base64 File</code> y <code>Decode Base64 File1</code>.</p>
 
                     <h4 class="mt-4">2. Almacenamiento automático en Google Drive</h4>
                     <p>El archivo decodificado se guarda en Drive mediante los nodos:</p>
-                    <ul>
+                    <ul class="text-white">
                         <li><p>**Upload file / Upload file1 / Upload file2**</p></li>
                     </ul>
-                    <p>Dependiendo del tipo de archivo, se envía a carpetas distintas gracias a la condición `IF` para imágenes (.jpg, .jpeg, .png).</p>
+                    <p>Dependiendo del tipo de archivo, se envía a carpetas distintas gracias a la condición <code>IF</code> para imágenes (.jpg, .jpeg, .png).</p>
 
                     <h4 class="mt-4">3. Procesamiento y vectorización con Supabase</h4>
                     <p>Una vez almacenado, el flujo:</p>
-                    <ul>
+                    <ul class="text-white">
                         <li><p>📄 Descarga el archivo</p></li>
-                        <li><p>🧩 Lo fragmenta con `Recursive Character Text Splitter`</p></li>
-                        <li><p>💠 Lo convierte en vectores con `Embeddings Google Gemini`, `Embeddings Google Gemini1`, etc.</p></li>
-                        <li><p>📥 Finalmente lo inserta en la tabla `memory` en **Supabase** (`Supabase Vector Store` & `Supabase Vector Store1`)</p></li>
+                        <li><p>🧩 Lo fragmenta con <code>Recursive Character Text Splitter</code></p></li>
+                        <li><p>💠 Lo convierte en vectores con <code>Embeddings Google Gemini</code>, <code>Embeddings Google Gemini1</code>, etc.</p></li>
+                        <li><p>📥 Finalmente lo inserta en la tabla <code>memory</code> en **Supabase** (<code>Supabase Vector Store</code> & <code>Supabase Vector Store1</code>)</p></li>
                     </ul>
                     <p>Esto convierte cualquier documento en una fuente de **memoria consultable por IA** en tiempo real.</p>
 
                     <h4 class="mt-4">4. IA conversacional con memoria persistente</h4>
                     <p>El flujo también incorpora un chatbot inteligente con:</p>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-dark">
                         <thead class="thead-light">
                             <tr>
                                 <th>Componente</th>
@@ -296,11 +312,11 @@
                             </tr>
                             <tr>
                                 <td>Memoria de contexto</td>
-                                <td>**Postgres** (`Postgres Chat Memory`, etc.)</td>
+                                <td>**Postgres** (<code>Postgres Chat Memory</code>, etc.)</td>
                             </tr>
                             <tr>
                                 <td>Recuperación por vector</td>
-                                <td>`skils` y `skils1` conectando **Supabase** a LLM</td>
+                                <td><code>skils</code> y <code>skils1</code> conectando **Supabase** a LLM</td>
                             </tr>
                         </tbody>
                     </table>
@@ -311,7 +327,7 @@
                     
 
                     <h3 class="mt-5 mb-3">🌐 Modo de Operación</h3>
-                    <ol>
+                    <ol class="text-white">
                         <li><p>Subes un archivo PDF/DOC/TXT/IMG</p></li>
                         <li><p>El sistema lo almacena y lo vectoriza</p></li>
                         <li><p>Puedes consultarlo por chat</p></li>
@@ -320,7 +336,7 @@
                     <p>Y lo mejor es su flexibilidad:</p>
                     <div class="row mt-4">
                         <div class="col-md-6">
-                            <ul class="list-unstyled">
+                            <ul class="list-unstyled text-white">
                                 <li>🔐 **Local y Privado**</li>
                                 <li>0 dependencia de servidores externos</li>
                                 <li>Máxima privacidad</li>
@@ -328,7 +344,7 @@
                             </ul>
                         </div>
                         <div class="col-md-6">
-                            <ul class="list-unstyled">
+                            <ul class="list-unstyled text-white">
                                 <li>☁ **Via API Externa**</li>
                                 <li>**Gemini** / **ChatGPT** / **OpenAI** / **Groq**</li>
                                 <li>Integración rápida y plug & play</li>
@@ -339,7 +355,7 @@
 
                     <h3 class="mt-5 mb-3">Casos de uso reales</h3>
                     <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-dark">
                         <thead class="thead-light">
                             <tr>
                                 <th>Sector</th>
@@ -373,7 +389,7 @@
 
                     <h3 class="mt-5 mb-3">🏁 Conclusión</h3>
                     <p>Este proyecto representa un ecosistema autónomo de **ingestión documental + vectorización + memoria + chat IA**, totalmente ampliable y sin ataduras tecnológicas. Puedes usarlo como base privada, SaaS comercial, assistant corporativo o incluso como sistema personal de conocimiento aumentado.</p>
-                    <p class="lead mt-4 text-center" style="font-weight: var(--font-weight-bold); color: var(--dark-color);">
+                    <p class="lead mt-4 text-center text-white" style="font-weight: var(--font-weight-bold);">
                         Tu información se convierte en conversación. Tu documentación se vuelve accesible. Tu IA ahora tiene memoria.
                     </p>
                 </div>
@@ -382,7 +398,7 @@
         </div>
         <div class="col-lg-12 col-12 text-center mt-5">
             <h6 data-aos="fade-up">Thankful to God for the opportunity to learn and allow me to donate my knowledges</h6>
-            <h2 class="text-dark" data-aos="fade-up" data-aos-delay="200">Thank you God, keep bless us</h2>
+            <h2 class="text-white" data-aos="fade-up" data-aos-delay="200">Thank you God, keep bless us</h2>
         </div>
     </section>
     
