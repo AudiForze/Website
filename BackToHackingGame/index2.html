@@ -95,7 +95,7 @@
 
                     <h6 class="mb-4 text-white" data-aos="fade-up">¿De qué trata este proyecto y qué tiene de especial??</h6>
 
-                    <p data-aos="fade-up" data-aos-delay="200"> Esto es <a rel="nofollow" href="https://audiforze.github.io/Website/Physlab/index.html" target="_parent">physclab</a> **GrapesAI**, un chatbot completamente local que puede ayudarte hacer trabajos completos y a estudiar</p>
+                    <p data-aos="fade-up" data-aos-delay="200"> Esto es <a rel="nofollow" href="https://audiforze.github.io/Website/Physlab/index.html" target="_parent">physclab</a> <strong>GrapesAI</strong>, un chatbot completamente local que puede ayudarte hacer trabajos completos y a estudiar</p>
 
                     <a href="#" class="btn custom-btn bg-color mt-3" data-aos="fade-up" data-aos-delay="300" data-toggle="modal" data-target="#membershipForm">Learn more...</a>
                 </div>
@@ -134,9 +134,9 @@
                             <div class="mt-lg-5 mb-lg-0 mb-4 col-lg-5 col-md-10 mx-auto col-12">
                                 <h2 class="mb-4" data-aos="fade-up" data-aos-delay="300">Hello, we are GrapesAI</h2>
 
-                                <p data-aos="fade-up" data-aos-delay="400">**GrapesAI** es una app que prioriza tu **privacidad** y el acceso en todo momento (incluso sin conexión) a la IA. Somos una aplicación que te permite subir tus archivos para que una IA te ayude a hacer tus tareas.</p>
+                                <p data-aos="fade-up" data-aos-delay="400"><strong>GrapesAI</strong> es una app que prioriza tu <strong>privacidad</strong> y el acceso en todo momento (incluso sin conexión) a la IA. Somos una aplicación que te permite subir tus archivos para que una IA te ayude a hacer tus tareas.</p>
 
-                                <p data-aos="fade-up" data-aos-delay="500">Te permitimos **enseñar a tu propia IA** para que te ayude a repasar para exámenes, hacer tareas, entender conceptos, desarrollar proyectos, crear recordatorios, apoyarte en tus actividades diarias y en todo lo que necesites.</p>
+                                <p data-aos="fade-up" data-aos-delay="500">Te permitimos <strong>enseñar a tu propia IA</strong> para que te ayude a repasar para exámenes, hacer tareas, entender conceptos, desarrollar proyectos, crear recordatorios, apoyarte en tus actividades diarias y en todo lo que necesites.</p>
 
                             </div>
 
@@ -261,8 +261,8 @@
                 </div>
     
                 <div class="col-lg-10 mx-auto col-12" data-aos="fade-up" data-aos-delay="300">
-                    <p class="mb-4">En la era de la información, el acceso rápido a conocimiento distribuido en archivos PDF, documentos Word, TXT o imágenes se ha convertido en una necesidad. Pensando en ello nació **M.I.A** —un proyecto diseñado en **n8n** que transforma documentos en conocimiento consultable por IA, almacenado de manera segura y escalable en una base vectorial en **Supabase**.</p>
-                    <p class="mb-4">Este sistema permite que cualquier archivo subido se procese automáticamente, se fragmente, se convierta en embeddings y posteriormente pueda ser consultado por un agente inteligente conectado a **ChatGPT, Gemini u otro modelo local privado**.</p>
+                    <p class="mb-4">En la era de la información, el acceso rápido a conocimiento distribuido en archivos PDF, documentos Word, TXT o imágenes se ha convertido en una necesidad. Pensando en ello nació <strong>M.I.A</strong> —un proyecto diseñado en <strong>n8n</strong> que transforma documentos en conocimiento consultable por IA, almacenado de manera segura y escalable en una base vectorial en <strong>Supabase</strong>.</p>
+                    <p class="mb-4">Este sistema permite que cualquier archivo subido se procese automáticamente, se fragmente, se convierta en embeddings y posteriormente pueda ser consultado por un agente inteligente conectado a <strong>ChatGPT, Gemini u otro modelo local privado</strong>.</p>
 
                     <h3 class="mt-5 mb-3">🔥 ¿Qué hace exactamente esta automatización?</h3>
 
@@ -273,24 +273,27 @@
                         <li><p>✔ <code>/upload-file2</code></p></li>
                         <li><p>✔ <code>/upload-file</code> (ramificado para imágenes o documentos)</p></li>
                     </ul>
-                    <p>Estos endpoints permiten enviar directamente un archivo en **Base64**, el cual es decodificado gracias al nodo <code>Decode Base64 File</code> y <code>Decode Base64 File1</code>.</p>
+                    <p>Estos endpoints permiten enviar directamente un archivo en <strong>Base64</strong>, el cual es decodificado gracias al nodo <code>Decode Base64 File</code> y <code>Decode Base64 File1</code>.</p>
 
                     <h4 class="mt-4">2. Almacenamiento automático en Google Drive</h4>
                     <p>El archivo decodificado se guarda en Drive mediante los nodos:</p>
                     <ul class="text-white">
-                        <li><p>**Upload file / Upload file1 / Upload file2**</p></li>
+                        <li><p><strong>Upload file / Upload file1 / Upload file2</strong></p></li>
                     </ul>
                     <p>Dependiendo del tipo de archivo, se envía a carpetas distintas gracias a la condición <code>IF</code> para imágenes (.jpg, .jpeg, .png).</p>
-
+                    
+                    <div class="text-center my-5">
+                        <img src="htb.jpg" class="img-fluid" alt="Diagrama de flujo o logo HTB">
+                    </div>
                     <h4 class="mt-4">3. Procesamiento y vectorización con Supabase</h4>
                     <p>Una vez almacenado, el flujo:</p>
                     <ul class="text-white">
                         <li><p>📄 Descarga el archivo</p></li>
                         <li><p>🧩 Lo fragmenta con <code>Recursive Character Text Splitter</code></p></li>
                         <li><p>💠 Lo convierte en vectores con <code>Embeddings Google Gemini</code>, <code>Embeddings Google Gemini1</code>, etc.</p></li>
-                        <li><p>📥 Finalmente lo inserta en la tabla <code>memory</code> en **Supabase** (<code>Supabase Vector Store</code> & <code>Supabase Vector Store1</code>)</p></li>
+                        <li><p>📥 Finalmente lo inserta en la tabla <code>memory</code> en <strong>Supabase</strong> (<code>Supabase Vector Store</code> & <code>Supabase Vector Store1</code>)</p></li>
                     </ul>
-                    <p>Esto convierte cualquier documento en una fuente de **memoria consultable por IA** en tiempo real.</p>
+                    <p>Esto convierte cualquier documento en una fuente de <strong>memoria consultable por IA</strong> en tiempo real.</p>
 
                     <h4 class="mt-4">4. IA conversacional con memoria persistente</h4>
                     <p>El flujo también incorpora un chatbot inteligente con:</p>
@@ -304,23 +307,23 @@
                         <tbody>
                             <tr>
                                 <td>LLM</td>
-                                <td>**Google Gemini Chat Model** & **Gemini Pro**</td>
+                                <td><strong>Google Gemini Chat Model</strong> & <strong>Gemini Pro</strong></td>
                             </tr>
                             <tr>
                                 <td>Agente autónomo</td>
-                                <td>**AI Agent** y **AI Agent1**</td>
+                                <td><strong>AI Agent</strong> y <strong>AI Agent1</strong></td>
                             </tr>
                             <tr>
                                 <td>Memoria de contexto</td>
-                                <td>**Postgres** (<code>Postgres Chat Memory</code>, etc.)</td>
+                                <td><strong>Postgres</strong> (<code>Postgres Chat Memory</code>, etc.)</td>
                             </tr>
                             <tr>
                                 <td>Recuperación por vector</td>
-                                <td><code>skils</code> y <code>skils1</code> conectando **Supabase** a LLM</td>
+                                <td><code>skils</code> y <code>skils1</code> conectando <strong>Supabase</strong> a LLM</td>
                             </tr>
                         </tbody>
                     </table>
-                    <p>Esto permite conversaciones continuas, consultas por contenido de documentos y **recuperación automática de datos vectorizados**.</p>
+                    <p>Esto permite conversaciones continuas, consultas por contenido de documentos y <strong>recuperación automática de datos vectorizados</strong>.</p>
                     <blockquote class="blockquote mt-4" style="border-left: 5px solid var(--primary-color); padding-left: 20px;">
                         <p class="mb-0">En términos simples: tu IA recuerda, aprende y consulta archivos sin necesidad humana.</p>
                     </blockquote>
@@ -337,7 +340,7 @@
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <ul class="list-unstyled text-white">
-                                <li><strong>🔐 Local y Privado</strong></li>
+                                <li><strong>Local y Privado</strong></li>
                                 <li>0 dependencia de servidores externos</li>
                                 <li>Máxima privacidad</li>
                                 <li>Ideal para empresas y datos sensibles</li>
@@ -345,8 +348,8 @@
                         </div>
                         <div class="col-md-6">
                             <ul class="list-unstyled text-white">
-                                <li>☁ **Via API Externa**</li>
-                                <li>**Gemini** / **ChatGPT** / **OpenAI** / **Groq**</li>
+                                <li><strong>Via API Externa</strong></li>
+                                <li><strong>Gemini</strong> / <strong>ChatGPT</strong> / <strong>OpenAI</strong> / <strong>Groq</strong></li>
                                 <li>Integración rápida y plug & play</li>
                                 <li>Ideal para consumo público y aplicaciones SaaS</li>
                             </ul>
@@ -364,23 +367,23 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>**Legal**</td>
+                                <td><strong>Legal</strong></td>
                                 <td>Resumen automático de contratos, búsqueda por cláusulas</td>
                             </tr>
                             <tr>
-                                <td>**Salud**</td>
+                                <td><strong>Salud</strong></td>
                                 <td>Consulta anónima de historiales clínicos sin exponer al paciente</td>
                             </tr>
                             <tr>
-                                <td>**Empresas**</td>
+                                <td><strong>Empresas</strong></td>
                                 <td>Base documental inteligente con manuales internos</td>
                             </tr>
                             <tr>
-                                <td>**Educación**</td>
+                                <td><strong>Educación</strong></td>
                                 <td>Carga de libros → Chat interactivo basado en el contenido</td>
                             </tr>
                             <tr>
-                                <td>**Software & Devs**</td>
+                                <td><strong>Software & Devs</strong></td>
                                 <td>Knowledge-base para repositorios o documentación API</td>
                             </tr>
                         </tbody>
@@ -388,7 +391,7 @@
                     </div>
 
                     <h3 class="mt-5 mb-3">🏁 Conclusión</h3>
-                    <p>Este proyecto representa un ecosistema autónomo de **ingestión documental + vectorización + memoria + chat IA**, totalmente ampliable y sin ataduras tecnológicas. Puedes usarlo como base privada, SaaS comercial, assistant corporativo o incluso como sistema personal de conocimiento aumentado.</p>
+                    <p>Este proyecto representa un ecosistema autónomo de <strong>ingestión documental + vectorización + memoria + chat IA</strong>, totalmente ampliable y sin ataduras tecnológicas. Puedes usarlo como base privada, SaaS comercial, assistant corporativo o incluso como sistema personal de conocimiento aumentado.</p>
                     <p class="lead mt-4 text-center text-white" style="font-weight: var(--font-weight-bold);">
                         Tu información se convierte en conversación. Tu documentación se vuelve accesible. Tu IA ahora tiene memoria.
                     </p>
