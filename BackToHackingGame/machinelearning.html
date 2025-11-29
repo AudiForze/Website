@@ -233,12 +233,20 @@
                     <p class="mt-4">En este punto entra en escena la arquitectura del modelo, comenzando desde variantes simples como el perceptrón(2), una neurona artificial que recibe entradas, las multiplica por valores llamados pesos, suma los resultados y aplica una función matemática conocida como activación. Cuando se combinan miles o millones de perceptrones en capas, se obtienen lo que conocemos como redes neuronales profundas.</p>
                     <p>En modelos modernos como los LLM (Large Language Models), se usan arquitecturas mucho más avanzadas, principalmente los transformers, que emplean mecanismos de self-attention para analizar cómo las partes de una oración se relacionan entre sí, independientemente de su posición. Gracias a este concepto de atención, modelos como GPT pueden comprender frases complejas y generar respuestas que mantienen coherencia global.</p>
 
+                    <div class="text-center my-5">
+                        <img src="images/class/perceptron.png" class="img-fluid" alt="esquema de ia">
+                    </div>
+
                     <blockquote class="blockquote mt-4" style="border-left: 5px solid var(--primary-color); padding-left: 20px;">
                         <p class="mb-0"><strong>Un perceptrón</strong> es una red neuronal sencilla con una sola capa de neuronas, que se suele utilizar para tareas de clasificación lineal. Consta de una capa de entrada y una capa de salida sin capas ocultas.</p>
                     </blockquote>
 
                     <p class="mt-4">Durante el entrenamiento, el modelo pasa los datos por sus capas en un proceso llamado <em>forward pass</em> y realiza una predicción. Esa predicción se compara con la respuesta correcta mediante una función de pérdida (explicada en la imagen). A través del algoritmo conocido como backpropagation(3), el modelo calcula cómo deben ajustarse los pesos para reducir el error.</p>
                     <p>El proceso se repite miles o millones de veces, usando un optimizador como Adam o SGD, modificando progresivamente los pesos. Este es el momento donde todo se complica para las computadoras y donde más recursos de necesitan y es la razón por la que usamos las GPU, ya que esta nos permite realizar de forma paralela y simultánea todos estos procesos, permitiendo un procesamiento mucho más rápido (n^n) y costos más baratos.</p>
+
+                    <div class="text-center my-5">
+                        <img src="images/class/backpropagation.png" class="img-fluid" alt="esquema de ia">
+                    </div>
 
                     <blockquote class="blockquote mt-4" style="border-left: 5px solid var(--primary-color); padding-left: 20px;">
                         <p class="mb-0"><strong>La función de backpropagation</strong> lo que hace es una reprogramación de los pesos para poder encontrar la probabilidad más exacta y verdadera dentro de la red neuronal.</p>
