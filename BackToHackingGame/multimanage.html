@@ -106,7 +106,7 @@
                 <div class="col-lg-10 mx-auto col-12" data-aos="fade-up" data-aos-delay="300">
                     
                     <div class="mb-5">
-                        <h3 class="text-white mb-3">🌟 ¿Qué es MultiManage?</h3>
+                        <h3 class="text-white mb-3">¿Qué es MultiManage?</h3>
                         <p class="text-white">MultiManage es una aplicación de monitoreo y gestión centralizada que opera bajo un modelo de arquitectura cliente-servidor. Su propósito principal es conectar múltiples equipos (los clientes) a un único punto de control (el servidor) para obtener información en tiempo real, ejecutar comandos remotos, monitorear el tráfico de red y aplicar políticas de seguridad, como el bloqueo de URL.</p>
                         <blockquote class="blockquote mt-4" style="border-left: 5px solid var(--primary-color); padding-left: 20px;">
                             <p class="mb-0 text-white">Piensa en él como un centro de mando digital que te permite supervisar y administrar de forma simultánea todos los ordenadores de una red desde una sola interfaz con gráficas interactivas.</p>
@@ -117,7 +117,7 @@
                         <h3 class="text-white mb-3">1. El Servidor (Backend FastAPI)</h3>
                         <p class="text-white">El servidor actúa como el cerebro de la aplicación. Desarrollado con <strong>FastAPI</strong> y <strong>Uvicorn</strong>, gestiona la base de datos SQLite (<code>metrics.db</code>) y sirve el dashboard.</p>
                         
-                        <h4 class="mt-4 text-white">📌 Creación de Tablas (SQLite)</h4>
+                        <h4 class="mt-4 text-white">Creación de Tablas (SQLite)</h4>
                         <p class="text-white">Al iniciar, el sistema asegura que existan las tablas para almacenar métricas de CPU, RAM y Disco.</p>
                         
                         <div class="code-container mt-3">
@@ -137,7 +137,7 @@
 """)</code></pre>
                         </div>
 
-                        <h4 class="mt-4 text-white">📌 Recepción de Datos (Endpoint)</h4>
+                        <h4 class="mt-4 text-white">Recepción de Datos (Endpoint)</h4>
                         <p class="text-white">El servidor expone endpoints REST para recibir la información enviada por los agentes.</p>
 
                         <div class="code-container mt-3">
@@ -160,7 +160,7 @@ async def upload_metrics(request: Request):
                         <h3 class="text-white mb-3">2. El Cliente (Agente Python)</h3>
                         <p class="text-white">Un script ligero y persistente que se ejecuta en los equipos monitoreados. Utiliza <code>psutil</code> para métricas y <code>subprocess</code> para comandos.</p>
 
-                        <h4 class="mt-4 text-white">📌 Configuración y Conexión</h4>
+                        <h4 class="mt-4 text-white">Configuración y Conexión</h4>
                         <p class="text-white">Cada cliente tiene un ID único y se conecta dinámicamente a la IP del servidor.</p>
 
                         <div class="code-container mt-3">
@@ -173,7 +173,7 @@ CLIENT_ID = "PC_Windows_Physco"
 SERVER_URL = f"http://{ip}:8000/upload_metrics"</code></pre>
                         </div>
 
-                        <h4 class="mt-4 text-white">📌 Envío de Métricas</h4>
+                        <h4 class="mt-4 text-white">Envío de Métricas</h4>
                         <p class="text-white">Recolección de estado del hardware cada 10 segundos.</p>
 
                         <div class="code-container mt-3">
@@ -199,7 +199,7 @@ SERVER_URL = f"http://{ip}:8000/upload_metrics"</code></pre>
         print(f"Error enviando métricas: {e}")</code></pre>
                         </div>
 
-                        <h4 class="mt-4 text-white">📌 Seguridad y Bloqueo de URLs</h4>
+                        <h4 class="mt-4 text-white">Seguridad y Bloqueo de URLs</h4>
                         <p class="text-white">El cliente detecta tráfico con <code>netstat</code> y modifica el archivo <code>hosts</code> para bloquear sitios prohibidos.</p>
 
                         <div class="code-container mt-3">
@@ -220,7 +220,7 @@ SERVER_URL = f"http://{ip}:8000/upload_metrics"</code></pre>
                     </div>
 
                     <div class="mt-5 text-center">
-                        <p class="lead text-white">🚀 <strong>Conclusión:</strong> MultiManage combina FastAPI, psutil y subprocesos para ofrecer visibilidad total y control de seguridad sobre la infraestructura de red.</p>
+                        <p class="lead text-white"><strong>Conclusión:</strong> MultiManage combina FastAPI, psutil y subprocesos para ofrecer visibilidad total y control de seguridad sobre la infraestructura de red.</p>
                     </div>
 
                 </div>
