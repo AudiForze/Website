@@ -268,6 +268,10 @@ SERVER_URL = f"http://{ip}:8000/upload_metrics"</code></pre>
                             <li><strong>Caducidad:</strong> El token tiene una vida útil limitada, definida por <code>ACCESS_TOKEN_EXPIRE_MINUTES</code>, que se establece en 60 minutos. Esto minimiza el riesgo de que un token robado pueda usarse indefinidamente.</li>
                         </ul>
                         
+                        <div class="text-center my-5">
+                            <img src="images/class/ijwt.png" class="img-fluid" alt="esquema de ia">
+                        </div>
+
                         <h3 class="text-white mb-3 mt-5">3. Uso del Token y Control de Acceso</h3>
                         <p class="text-white">Una vez que el usuario recibe su Token Bearer, todas las solicitudes posteriores a las APIs protegidas (como obtener métricas, enviar comandos o gestionar URLs bloqueadas) deben incluir este token en la cabecera **Authorization**.</p>
                         
