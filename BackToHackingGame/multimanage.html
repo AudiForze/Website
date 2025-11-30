@@ -29,7 +29,7 @@
      <link rel="stylesheet" href="css/aos.css">
      <link rel="icon" href="../img/redhat.ico" type="image/x-icon">
 
-     <link rel="stylesheet" href="css/maching.css">
+     <link rel="stylesheet" href="css/multimanage.css">
 
 </head>
 <body data-spy="scroll" data-target="#navbarNav" data-offset="50">
@@ -227,7 +227,27 @@ SERVER_URL = f"http://{ip}:8000/upload_metrics"</code></pre>
             </div>
         </div>
     </section>
-     
+    <script>
+    function copyToClipboard(elementId) {
+        // Obtener el texto del elemento code
+        var copyText = document.getElementById(elementId).innerText;
+        
+        // Crear un elemento de texto temporal
+        var textArea = document.createElement("textarea");
+        textArea.value = copyText;
+        document.body.appendChild(textArea);
+        
+        // Seleccionar y copiar
+        textArea.select();
+        document.execCommand("Copy");
+        
+        // Limpiar
+        textArea.remove();
+        
+        // Feedback visual (opcional: alert o cambiar texto del botón)
+        alert("Código copiado al portapapeles: " + elementId);
+    }
+    </script>
     
      <script src="js/jquery.min.js"></script>
      <script src="js/bootstrap.min.js"></script>
