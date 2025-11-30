@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5BXF7846');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K3M1MKBBNB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-K3M1MKBBNB');
+  </script>
+     <title>Physclab | IA</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/font-awesome.min.css">
+     <link rel="stylesheet" href="css/aos.css">
+     <link rel="icon" href="../img/redhat.ico" type="image/x-icon">
+
+     <link rel="stylesheet" href="css/maching.css">
+
+</head>
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+
+            <a class="navbar-brand" href="https://audiforze.github.io/Website/Physlab/index.html#">Physclab</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-lg-auto">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link smoothScroll">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#class" class="nav-link smoothScroll">Resources</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#schedule" class="nav-link smoothScroll">Blog Post</a>
+                    </li>
+
+                </ul>
+
+                <ul class="social-icon ml-lg-3">
+                    <li><a href="https://audiforze.github.io/Website/Physlab/index.html" class="fa fa-github"></a></li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+
+     <section class="hero d-flex flex-column justify-content-center align-items-center" id="home">
+
+            <div class="bg-overlay"></div>
+
+               <div class="container">
+                    <div class="row">
+
+                         <div class="col-lg-8 col-md-10 mx-auto col-12">
+                              <div class="hero-text mt-5 text-center">
+
+                                    <h6 data-aos="fade-up" data-aos-delay="300">¿Como "piensa" una ia?</h6>
+
+                                    <h1 class="text-white" data-aos="fade-up" data-aos-delay="500">Inteligencia Artificial</h1>
+
+                                    <a href="#feature" class="btn custom-btn mt-3" data-aos="fade-up" data-aos-delay="600">Get started</a>
+
+                                    <a href="#class" class="btn custom-btn bordered mt-3" data-aos="fade-up" data-aos-delay="700">learn more</a>
+                                   
+                              </div>
+                         </div>
+
+                    </div>
+               </div>
+     </section>
+
+
+<section class="schedule section" id="multimanage">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-12 text-center mb-5">
+                    <h6 data-aos="fade-up">Arquitectura Cliente-Servidor</h6>
+                    <h2 class="text-white" data-aos="fade-up" data-aos-delay="200">MultiManage: Centro de Mando Digital</h2>
+                </div>
+
+                <div class="col-lg-10 mx-auto col-12" data-aos="fade-up" data-aos-delay="300">
+                    
+                    <div class="mb-5">
+                        <h3 class="text-white mb-3">🌟 ¿Qué es MultiManage?</h3>
+                        <p class="text-white">MultiManage es una aplicación de monitoreo y gestión centralizada que opera bajo un modelo de arquitectura cliente-servidor. Su propósito principal es conectar múltiples equipos (los clientes) a un único punto de control (el servidor) para obtener información en tiempo real, ejecutar comandos remotos, monitorear el tráfico de red y aplicar políticas de seguridad, como el bloqueo de URL.</p>
+                        <blockquote class="blockquote mt-4" style="border-left: 5px solid var(--primary-color); padding-left: 20px;">
+                            <p class="mb-0 text-white">Piensa en él como un centro de mando digital que te permite supervisar y administrar de forma simultánea todos los ordenadores de una red desde una sola interfaz con gráficas interactivas.</p>
+                        </blockquote>
+                    </div>
+
+                    <div class="mb-5">
+                        <h3 class="text-white mb-3">1. El Servidor (Backend FastAPI)</h3>
+                        <p class="text-white">El servidor actúa como el cerebro de la aplicación. Desarrollado con <strong>FastAPI</strong> y <strong>Uvicorn</strong>, gestiona la base de datos SQLite (<code>metrics.db</code>) y sirve el dashboard.</p>
+                        
+                        <h4 class="mt-4 text-white">📌 Creación de Tablas (SQLite)</h4>
+                        <p class="text-white">Al iniciar, el sistema asegura que existan las tablas para almacenar métricas de CPU, RAM y Disco.</p>
+                        
+                        <div class="code-container mt-3">
+                            <div class="code-header">
+                                <span>server.py - Database Setup</span>
+                                <button class="copy-btn" onclick="copyToClipboard('code1')">Copiar Código</button>
+                            </div>
+                            <pre><code id="code1" class="language-python">cursor.execute("""
+    CREATE TABLE IF NOT EXISTS metrics (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        client_id TEXT,
+        cpu REAL,
+        ram REAL,
+        disk REAL,
+        timestamp TEXT
+    )
+""")</code></pre>
+                        </div>
+
+                        <h4 class="mt-4 text-white">📌 Recepción de Datos (Endpoint)</h4>
+                        <p class="text-white">El servidor expone endpoints REST para recibir la información enviada por los agentes.</p>
+
+                        <div class="code-container mt-3">
+                            <div class="code-header">
+                                <span>server.py - Endpoint</span>
+                                <button class="copy-btn" onclick="copyToClipboard('code2')">Copiar Código</button>
+                            </div>
+                            <pre><code id="code2" class="language-python">@app.post("/upload_metrics")
+async def upload_metrics(request: Request):
+    # Lógica para recibir JSON y guardar en BD
+    data = await request.json()
+    # Insertar en metrics.db...
+    return {"status": "success"}</code></pre>
+                        </div>
+                    </div>
+
+                    <hr style="border-top: 1px solid #333;">
+
+                    <div class="mt-5 mb-5">
+                        <h3 class="text-white mb-3">2. El Cliente (Agente Python)</h3>
+                        <p class="text-white">Un script ligero y persistente que se ejecuta en los equipos monitoreados. Utiliza <code>psutil</code> para métricas y <code>subprocess</code> para comandos.</p>
+
+                        <h4 class="mt-4 text-white">📌 Configuración y Conexión</h4>
+                        <p class="text-white">Cada cliente tiene un ID único y se conecta dinámicamente a la IP del servidor.</p>
+
+                        <div class="code-container mt-3">
+                            <div class="code-header">
+                                <span>cliente2.py - Config</span>
+                                <button class="copy-btn" onclick="copyToClipboard('code3')">Copiar Código</button>
+                            </div>
+                            <pre><code id="code3" class="language-python">ip = get_local_ip() # Función auxiliar
+CLIENT_ID = "PC_Windows_Physco"
+SERVER_URL = f"http://{ip}:8000/upload_metrics"</code></pre>
+                        </div>
+
+                        <h4 class="mt-4 text-white">📌 Envío de Métricas</h4>
+                        <p class="text-white">Recolección de estado del hardware cada 10 segundos.</p>
+
+                        <div class="code-container mt-3">
+                            <div class="code-header">
+                                <span>cliente2.py - Metrics</span>
+                                <button class="copy-btn" onclick="copyToClipboard('code4')">Copiar Código</button>
+                            </div>
+                            <pre><code id="code4" class="language-python">def send_metrics():
+    try:
+        cpu = psutil.cpu_percent(interval=1)
+        ram = psutil.virtual_memory().percent
+        disk = psutil.disk_usage('/').percent
+        
+        data = {
+            "client_id": CLIENT_ID, 
+            "cpu": cpu, 
+            "ram": ram, 
+            "disk": disk, 
+            "timestamp": str(datetime.now())
+        }
+        requests.post(SERVER_URL, json=data, timeout=5)
+    except Exception as e:
+        print(f"Error enviando métricas: {e}")</code></pre>
+                        </div>
+
+                        <h4 class="mt-4 text-white">📌 Seguridad y Bloqueo de URLs</h4>
+                        <p class="text-white">El cliente detecta tráfico con <code>netstat</code> y modifica el archivo <code>hosts</code> para bloquear sitios prohibidos.</p>
+
+                        <div class="code-container mt-3">
+                            <div class="code-header">
+                                <span>cliente2.py - Security</span>
+                                <button class="copy-btn" onclick="copyToClipboard('code5')">Copiar Código</button>
+                            </div>
+                            <pre><code id="code5" class="language-python">def block_with_hosts(url):
+    hosts_path = r"C:\Windows\System32\drivers\etc\hosts"
+    entry = f"127.0.0.1 {url}"
+    
+    # Lógica de escritura en archivo
+    with open(hosts_path, 'a') as file:
+        file.write(f"\n{entry}")
+    
+    flush_dns() # Limpia caché para efecto inmediato</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 text-center">
+                        <p class="lead text-white">🚀 <strong>Conclusión:</strong> MultiManage combina FastAPI, psutil y subprocesos para ofrecer visibilidad total y control de seguridad sobre la infraestructura de red.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+     
+    
+     <script src="js/jquery.min.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/aos.js"></script>
+     <script src="js/smoothscroll.js"></script>
+     <script src="js/custom.js"></script>
+
+</body>
+</html>
