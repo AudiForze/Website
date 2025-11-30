@@ -231,8 +231,53 @@ SERVER_URL = f"http://{ip}:8000/upload_metrics"</code></pre>
                         </div>
                     </div>
 
+                    <div class="mt-5 mb-5">
+                        <h2 class="text-white mb-4" data-aos="fade-up" data-aos-delay="200">🔒 El Sistema de Login de MultiManage: Seguridad por Diseño</h2>
+                        <p class="text-white">El sistema de login se encuentra completamente en el código del Servidor (<code>server.py</code>) y utiliza una combinación de técnicas modernas para asegurar tanto las credenciales de los usuarios como la persistencia de las sesiones.</p>
+
+                        <h3 class="text-white mb-3 mt-4">1. Cifrado de Contraseñas (Hashing con BCrypt)</h3>
+                        <p class="text-white">El aspecto más importante de la seguridad es cómo se almacenan las contraseñas. MultiManage <strong>NO</strong> almacena las contraseñas de los usuarios como texto plano. En su lugar, utiliza un proceso llamado <strong>Hashing</strong> con el algoritmo <strong>BCrypt</strong>.</p>
+                        
+                        <p class="text-white pl-4"><strong>¿Qué es BCrypt?</strong> Es un algoritmo de hashing de contraseñas muy seguro, diseñado para ser intencionalmente <strong>lento</strong>. Esta lentitud es una defensa clave contra los ataques de <strong>"fuerza bruta"</strong> (intentos masivos de adivinar contraseñas), ya que hace que cada intento de descifrado tome mucho más tiempo.</p>
+                        
+                        <h4 class="mt-4 text-white">Implementación en Python (<code>passlib</code>):</h4>
+                        <div class="code-container mt-3">
+                            <div class="code-header">
+                                <span>server.py - BCrypt Setup</span>
+                                <button class="copy-btn" onclick="copyToClipboard('code6')">Copiar Código</button>
+                            </div>
+                            <pre><code id="code6" class="language-python">pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")</code></pre>
+                        </div>
+                        <p class="text-white mt-2">Al registrarse o inicializar el usuario admin, la contraseña se convierte en una cadena de texto larga y no reversible usando la función <code>pwd_context.hash()</code> antes de almacenarse en la base de datos.</p>
+                        
+                        <h3 class="text-white mb-3 mt-5">2. Flujo de Autenticación (OAuth2 y Tokens)</h3>
+                        <p class="text-white">El sistema sigue el estándar de autenticación <strong>OAuth2 Password Bearer</strong> para gestionar el inicio de sesión.</p>
+
+                        <h4 class="mt-4 text-white">A. Solicitud de Acceso (Endpoint <code>/token</code>)</h4>
+                        <p class="text-white">El usuario envía su nombre de usuario y contraseña al endpoint <code>/token</code>. La función <code>authenticate_user</code> verifica si el usuario existe y si la contraseña es correcta mediante el proceso de hashing (BCrypt). Si la autenticación es exitosa, el servidor procede a crear un Token de Acceso.</p>
+
+                        <h4 class="mt-4 text-white">B. Creación del Token (JWT)</h4>
+                        <p class="text-white">El servidor utiliza <strong>JSON Web Tokens (JWT)</strong> para crear un token único que representa la sesión activa del usuario.</p>
+                        <ul class="text-white">
+                            <li><strong>Algoritmo de Firma</strong> El token se firma digitalmente usando el algoritmo <strong>HS256</strong> (HMAC-SHA256) y una <strong>SECRET_KEY</strong>. Esto garantiza que solo el servidor pueda generar tokens válidos y que si un atacante intenta modificar el token, la firma fallará.</li>
+                            <li><strong>Contenido (Payload):</strong> El token incluye información esencial, como el nombre de usuario (<code>sub</code>) y la fecha de caducidad (<code>exp</code>).</li>
+                            <li><strong>Caducidad:</strong> El token tiene una vida útil limitada, definida por <code>ACCESS_TOKEN_EXPIRE_MINUTES</code>, que se establece en 60 minutos. Esto minimiza el riesgo de que un token robado pueda usarse indefinidamente.</li>
+                        </ul>
+                        
+                        <h3 class="text-white mb-3 mt-5">3. Uso del Token y Control de Acceso</h3>
+                        <p class="text-white">Una vez que el usuario recibe su Token Bearer, todas las solicitudes posteriores a las APIs protegidas (como obtener métricas, enviar comandos o gestionar URLs bloqueadas) deben incluir este token en la cabecera **Authorization**.</p>
+                        
+                        <ul class="text-white">
+                            <li><strong>Dependencia <code>get_current_user</code>:</strong> Todos los endpoints sensibles, como <code>/api/clients_summary</code>, <code>/api/send_command</code>, o <code>/api/block_url</code>, utilizan una función de dependencia de FastAPI llamada <code>get_current_user</code>.</li>
+                            <li><strong>Verificación en Cada Solicitud:</strong> Esta función decodifica el JWT para verificar que la firma HS256 sea válida y que el token no haya caducado, además de buscar el usuario en la base de datos.</li>
+                            <li><strong>Acceso Denegado:</strong> Si el token es inválido o ha expirado, el servidor responde con un error HTTP <strong>401 Unauthorized</strong> ("No autorizado").</li>
+                        </ul>
+                    </div>
+
+                    <hr style="border-top: 1px solid #333;">
+
                     <div class="mt-5 text-center">
-                        <p class="lead text-white"><strong>Conclusión:</strong> MultiManage combina FastAPI, psutil y subprocesos para ofrecer visibilidad total y control de seguridad sobre la infraestructura de red.</p>
+                        <p class="lead text-white"><strong>Conclusión:</strong> MultiManage combina FastAPI, psutil y subprocesos para ofrecer visibilidad total y control de seguridad sobre la infraestructura de red, complementado con un robusto sistema de autenticación basado en BCrypt y JWT para proteger el acceso al centro de mando digital.</p>
                     </div>
 
                 </div>
