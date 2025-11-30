@@ -235,6 +235,10 @@ SERVER_URL = f"http://{ip}:8000/upload_metrics"</code></pre>
                         <h2 class="text-white mb-4" data-aos="fade-up" data-aos-delay="200">El Sistema de Login de MultiManage: Seguridad por Diseño</h2>
                         <p class="text-white">El sistema de login se encuentra completamente en el código del Servidor (<code>server.py</code>) y utiliza una combinación de técnicas modernas para asegurar tanto las credenciales de los usuarios como la persistencia de las sesiones.</p>
 
+                    <div class="text-center my-5">
+                        <img src="images/class/login.png" class="img-fluid" alt="esquema de ia">
+                    </div>
+
                         <h3 class="text-white mb-3 mt-4">1. Cifrado de Contraseñas (Hashing con BCrypt)</h3>
                         <p class="text-white">El aspecto más importante de la seguridad es cómo se almacenan las contraseñas. MultiManage <strong>NO</strong> almacena las contraseñas de los usuarios como texto plano. En su lugar, utiliza un proceso llamado <strong>Hashing</strong> con el algoritmo <strong>BCrypt</strong>.</p>
                         
