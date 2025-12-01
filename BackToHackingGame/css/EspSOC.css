@@ -1,6 +1,4 @@
-
-
-  @font-face {
+@font-face {
       font-family: 'Plain';
       src: url('../fonts/Plain-Regular.woff2') format('woff2'),
           url('../fonts/Plain-Regular.woff') format('woff');
@@ -25,7 +23,7 @@
   }
 
   :root {
-    --primary-color:        #f13a11;
+    --primary-color:        #f13a11; /* Mantenido del original */
     --white-color:          #ffffff;
     --dark-color:           #171819;
     --about-bg-color:       #f9f9f9;
@@ -661,7 +659,8 @@
       display: block;
     }
   }
-  /* Estilos para MultiManage Code Blocks */
+
+  /* Estilos para MultiManage Code Blocks - (YA EXISTÍA EN EL ORIGINAL, PERO SE MANTIENE PORQUE ESTÁ EN EL ORIGINAL) */
 .code-container {
     background: #1e1e1e; /* Fondo oscuro tipo VS Code */
     border-radius: 6px;
@@ -713,3 +712,98 @@ code {
     color: #d4d4d4; /* Color de texto base claro */
     font-size: 0.95rem;
 }
+
+/* Coloración básica de sintaxis (opcional, simula Python) */
+.language-python {
+    color: #9cdcfe;
+}
+
+
+/* --- ESTILOS NUEVOS AÑADIDOS DEL FRAGMENTO --- */
+
+/* Nota: Las variables y estilos de body del fragmento NO se incluyeron 
+   ya que sobrescribirían las declaraciones existentes. 
+   Solo se añadieron los nuevos selectores. */
+
+/* --- Selectores nuevos de Navbar --- */
+/* Estas declaraciones específicas del navbar brand y nav-link no existían. */
+.navbar-brand {
+    color: var(--white-color) !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    color: var(--gray-color) !important;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+/* --- Selectores nuevos de Hero --- */
+/* Estas declaraciones específicas de hero h1 y hero-subtitle no existían. */
+.hero h1 {
+    font-size: 4.5rem;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--gray-color);
+    margin-bottom: 30px;
+}
+
+/* --- Selectores nuevos de Botón --- */
+.btn-custom {
+    background: var(--primary-color);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    border: 1px solid var(--primary-color);
+}
+
+.btn-custom:hover {
+    background: transparent;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+/* --- Selectores nuevos de Contenido --- */
+.section-title {
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: var(--primary-color);
+    margin-top: 10px;
+}
+
+.info-card {
+    /* Nota: Usamos la variable --card-bg-color, aunque no está definida en el original. 
+       Si esta variable no se define en el HTML o en un CSS posterior, usará el valor por defecto.
+       Para que funcione, puedes añadir: --card-bg-color: #f9f9f9; al :root si quieres un fondo claro,
+       o el valor del fragmento: --card-bg-color: #1e1e1e; para un fondo oscuro. */
+    background: var(--card-bg-color); 
+    padding: 2rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
