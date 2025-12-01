@@ -94,11 +94,203 @@
                </div>
      </section>
 
+    <section id="intro" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title" data-aos="fade-right">1. ¿Qué es espsoc?</h2>
+                    <div class="info-card" data-aos="fade-up">
+                        <p><strong>espsoc</strong> es una herramienta educativa desarrollada en Python que simula las capacidades fundamentales de un Centro de Operaciones de Seguridad (SOC). Su propósito es servir como un "puesto de comando" para analistas de seguridad, permitiéndoles gestionar usuarios, realizar inteligencia de amenazas en tiempo real sobre dominios e IPs, y reportar incidentes de manera automatizada.</p>
+                        <p class="mb-0">A diferencia de las herramientas de línea de comandos tradicionales, este proyecto apuesta por una <strong>Interfaz Gráfica de Usuario (GUI)</strong> moderna construida con <code>customtkinter</code>. Esto no solo hace que la herramienta sea más accesible visualmente, sino que demuestra cómo Python puede utilizarse para crear aplicaciones de escritorio robustas que integran múltiples servicios y APIs en un solo panel de control.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="security" class="section" style="background-color: #181818;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mb-4">
+                    <h2 class="section-title" data-aos="fade-right">2. Seguridad desde la Base</h2>
+                    <p>Una de las primeras lecciones que ofrece este proyecto es el manejo responsable de credenciales. En lugar de almacenar las contraseñas de los usuarios en texto plano (un error grave de seguridad), el sistema implementa <strong>hashing</strong> utilizando el algoritmo SHA-256.</p>
+                </div>
+                
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="info-card">
+                        <h4>Autenticación y Criptografía</h4>
+                        <p>En el archivo <code>pyqt.py</code>, podemos ver cómo, al inicializar la base de datos, se crean los usuarios por defecto (admin y root). Observa cómo la contraseña se convierte en un hash antes de guardarse.</p>
+                        <p>Este proceso asegura que, incluso si un atacante accede al archivo <code>usuarios.db</code>, no podrá leer las contraseñas originales directamente.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>pyqt.py - Hash de Contraseña</span>
+                            <button class="copy-btn" onclick="copyToClipboard('code1')"><i class="far fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code id="code1"><span class="keyword">def</span> <span class="function">inicializar_base_datos</span>():
+    <span class="comment"># ... conexión a la base de datos ...</span>
+    cursor.execute(<span class="string">"SELECT * FROM usuarios WHERE nombre='admin'"</span>)
+    <span class="keyword">if not</span> cursor.fetchone():
+        <span class="comment"># Aquí ocurre la magia: se hashea la contraseña</span>
+        password_hash = sha256(<span class="string">'admin123'</span>.encode()).hexdigest()
+        cursor.execute(<span class="string">"INSERT INTO usuarios (nombre, contraseña, rol) VALUES (?, ?, ?)"</span>, 
+                      (<span class="string">'admin'</span>, password_hash, <span class="string">'administrador'</span>))</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="intel" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="section-title" data-aos="fade-right">3. Inteligencia de Amenazas</h2>
+                    <p class="lead mb-5">El núcleo del SOC reside en su capacidad para determinar si un dominio es seguro o malicioso utilizando múltiples fuentes de verdad.</p>
+                </div>
+
+                <div class="col-lg-12" data-aos="fade-up">
+                    <h3>Consulta a VirusTotal API</h3>
+                    <p>El módulo <code>validar.py</code> actúa como un cliente HTTP que se comunica con la API v3 de VirusTotal. El código construye una petición GET autenticada mediante un encabezado y procesa la respuesta JSON para extraer las estadísticas de reputación.</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>validar.py - VirusTotal Request</span>
+                            <button class="copy-btn" onclick="copyToClipboard('code2')"><i class="far fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code id="code2"><span class="keyword">def</span> <span class="function">verificar_dominio</span>(dominio):
+    API_KEY = <span class="string">"66d00a63db..."</span>  
+    url = <span class="string">f"https://www.virustotal.com/api/v3/domains/{dominio}"</span>
+    headers = {<span class="string">"x-apikey"</span>: API_KEY}
+
+    <span class="keyword">try</span>:
+        response = requests.get(url, headers=headers, timeout=10)
+        <span class="keyword">if</span> response.status_code == 200:
+            data = response.json()
+            <span class="comment"># Se extraen métricas específicas</span>
+            stats = data[<span class="string">"data"</span>][<span class="string">"attributes"</span>][<span class="string">"last_analysis_stats"</span>]
+            <span class="keyword">if</span> stats[<span class="string">"malicious"</span>] > 0 <span class="keyword">or</span> stats[<span class="string">"suspicious"</span>] > 0:
+                <span class="keyword">return</span> <span class="string">f"[⚠️] {dominio} - Malicioso"</span>, <span class="string">"malicious"</span>
+            <span class="keyword">else</span>:
+                <span class="keyword">return</span> <span class="string">f"[✅] {dominio} es seguro"</span>, <span class="string">"safe"</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 mt-5" data-aos="fade-up">
+                    <h3>Detección DNS con Spamhaus</h3>
+                    <p>El proyecto demuestra un conocimiento avanzado de redes al implementar consultas a listas negras basadas en DNS (DNSBL). Para consultar estas listas, el sistema debe invertir la dirección IP y añadirle el dominio de la lista negra (`zen.spamhaus.org`). Si el servidor DNS resuelve la consulta con éxito (usando `gethostbyname`), la IP está en la lista negra.</p>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>pyqt.py - DNS Reverse Lookup</span>
+                            <button class="copy-btn" onclick="copyToClipboard('code3')"><i class="far fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code id="code3"><span class="keyword">def</span> <span class="function">check_spamhaus</span>(domain_or_ip):
+    <span class="keyword">try</span>:
+        <span class="comment"># Se invierte la IP (ej: 1.2.3.4 -> 4.3.2.1)</span>
+        reversed_ip = <span class="string">'.'</span>.join(ip.split(<span class="string">'.'</span>)[::-1])
+        query = <span class="string">f"{reversed_ip}.zen.spamhaus.org"</span>
+        
+        <span class="keyword">try</span>:
+            <span class="comment"># Si gethostbyname resuelve, la IP está en la lista negra</span>
+            gethostbyname(query)
+            <span class="keyword">return</span> <span class="string">"⛔ En lista negra (Spamhaus)"</span>
+        <span class="keyword">except</span> gaierror:
+            <span class="comment"># Si falla la resolución, la IP está limpia</span>
+            <span class="keyword">return</span> <span class="string">"✅ No en listas negras"</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="performance" class="section" style="background-color: #181818;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="section-title" data-aos="fade-right">4. Rendimiento y Automatización</h2>
+                </div>
+
+                <div class="col-md-6" data-aos="fade-right">
+                    <h4>Multithreading para Concurrencia</h4>
+                    <p>Un problema común en aplicaciones de interfaz gráfica es el bloqueo de la UI durante tareas de red largas. **espsoc** resuelve esto utilizando <code>ThreadPoolExecutor</code>, lo que le permite lanzar múltiples hilos simultáneos para el análisis masivo de dominios, manteniendo la ventana principal responsiva.</p>
+                    
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>validar.py - ThreadPoolExecutor</span>
+                            <button class="copy-btn" onclick="copyToClipboard('code4')"><i class="far fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code id="code4"><span class="keyword">def</span> <span class="function">ejecutar_analisis</span>():
+    <span class="comment"># Se crea un pool de 10 trabajadores</span>
+    <span class="keyword">with</span> ThreadPoolExecutor(max_workers=10) <span class="keyword">as</span> executor:  
+        futures = {executor.submit(analizar, dom): dom <span class="keyword">for</span> dom <span class="keyword">in</span> dominios}
+        <span class="keyword">for</span> future <span class="keyword">in</span> futures:
+            <span class="comment"># Procesa resultados asíncronamente y actualiza la UI</span>
+            res = future.result()
+            self.after(0, update_ui, res)</code></pre>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-aos="fade-left">
+                    <h4>Notificación Asíncrona con Discord</h4>
+                    <p>El proyecto implementa un bot de Discord que se ejecuta en un hilo separado. Esto permite que el SOC envíe alertas y los gráficos generados por <code>matplotlib</code> a un usuario específico mediante un Mensaje Directo (DM), cerrando el ciclo de notificación de incidentes.</p>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>validar.py - Discord Bot</span>
+                            <button class="copy-btn" onclick="copyToClipboard('code5')"><i class="far fa-copy"></i> Copiar</button>
+                        </div>
+                        <pre><code id="code5"><span class="keyword">class</span> <span class="class-name">DiscordBot</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self):
+        self.bot = commands.Bot(command_prefix=<span class="string">'!'</span>, intents=discord.Intents.all())
+
+    <span class="keyword">async def</span> <span class="function">send_dm</span>(self, content):
+        user = <span class="keyword">await</span> self.bot.fetch_user(self.user_id)
+        <span class="keyword">if</span> user:
+            <span class="comment"># Envío directo al usuario (DM)</span>
+            <span class="keyword">await</span> user.send(content)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Inicializar animaciones
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Función para copiar código (Modern API)
+        function copyToClipboard(elementId) {
+            var codeText = document.getElementById(elementId).innerText;
+            
+            // Usar la API moderna de portapapeles
+            navigator.clipboard.writeText(codeText).then(function() {
+                alert("¡Código copiado al portapapeles!");
+            }, function(err) {
+                // Fallback para navegadores antiguos (como en el archivo multimanage.html)
+                var textArea = document.createElement("textarea");
+                textArea.value = codeText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand("Copy");
+                textArea.remove();
+                alert("Código copiado (Fallback)");
+            });
+        }
+    </script>
+    
      <script src="js/jquery.min.js"></script>
      <script src="js/bootstrap.min.js"></script>
      <script src="js/aos.js"></script>
      <script src="js/smoothscroll.js"></script>
      <script src="js/custom.js"></script>
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 </body>
 </html>
