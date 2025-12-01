@@ -1,186 +1,76 @@
-        /* --- VARIABLES CSS (Adaptadas de multimanage.css) --- */
-        :root {
-            --primary-color:        #f13a11; /* Púrpura estilo SOC */
-            --secondary-color:      #7289da;
-            --white-color:          #ffffff;
-            --dark-color:           #121212;
-            --card-bg-color:        #1e1e1e;
-            --gray-color:           #b3b3b3;
-            --link-color:           #e0e0e0;
-            --p-color:              #cccccc;
+/* ------------------------------ */
+/* 💠 TIPOGRAFÍA + VARIABLES BASE */
+/* ------------------------------ */
+@font-face {
+    font-family: 'Plain';
+    src: url('../fonts/Plain-Regular.woff2') format('woff2'),
+         url('../fonts/Plain-Regular.woff') format('woff');
+}
+@font-face {
+    font-family: 'Plain';
+    src: url('../fonts/Plain-Light.woff2') format('woff2'),
+         url('../fonts/Plain-Light.woff') format('woff');
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Plain';
+    src: url('../fonts/Plain-Bold.woff2') format('woff2'),
+         url('../fonts/Plain-Bold.woff') format('woff');
+    font-weight: bold;
+}
 
-            --base-font-family:     'Inter', sans-serif;
-        }
+:root {
+    --primary-color:#f13a11;
+    --white-color:#fff;
+    --dark-color:#171819;
 
-        body {
-            background: var(--dark-color);
-            color: var(--white-color);
-            font-family: var(--base-font-family);
-            overflow-x: hidden;
-            padding-top: 70px; /* Espacio para el Navbar fijo */
-        }
+    --h1-font-size:48px;
+    --h6-font-size:22px;
+    --p-font-size:18px;
+    --base-font-family:'Plain', sans-serif;
+}
 
-        /* --- NAVBAR --- */
-        .navbar {
-            background: rgba(18, 18, 18, 0.95);
-            padding: 1rem;
-            border-bottom: 1px solid #333;
-        }
+body{
+    background:var(--white-color);
+    font-family:var(--base-font-family);
+}
 
-        .navbar-brand {
-            color: var(--white-color) !important;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
+/* ------------------------------ */
+/* 🔥 HERO SECTION MANTENIDO      */
+/* ------------------------------ */
+.hero{
+    background-image:url('../images/hero-bg.jpg');
+    background-size:cover;
+    background-position:top;
+    background-repeat:no-repeat;
+    min-height:100vh;
+    position:relative;
+}
 
-        .nav-link {
-            color: var(--gray-color) !important;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-        }
+.bg-overlay{
+    background:var(--dark-color);
+    position:absolute;
+    top:0; right:0; bottom:0; left:0;
+    opacity:.85;
+}
 
-        .nav-link:hover {
-            color: var(--primary-color) !important;
-        }
+/* ------------------------------ */
+/* BOTONES ORIGINALES CONSERVADOS */
+/* ------------------------------ */
+.custom-btn{
+    background:transparent;
+    padding:14px 24px;
+    color:white;
+    text-transform:uppercase;
+    border-radius:2px;
+    letter-spacing:.5px;
+    transition:.3s;
+}
 
-        /* --- HERO SECTION (Alineación Forzada desde el original) --- */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('/../images/espsoc.png');
-            background-size: cover;
-            background-position: center;
-            height: 100vh; /* Ocupa toda la altura visible */
-            display: flex; /* Asegura el flexbox */
-            align-items: center; /* Centra verticalmente */
-            justify-content: center; /* Centra horizontalmente */
-            text-align: center;
-            padding-top: 0; /* Anula padding superior si lo hay */
-        }
-
-        .hero h1 {
-            font-size: 4.5rem;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--gray-color);
-            margin-bottom: 30px;
-        }
-
-        .btn-custom {
-            background: var(--primary-color);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-            border: 1px solid var(--primary-color);
-        }
-
-        .btn-custom:hover {
-            background: transparent;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        /* --- CONTENT SECTIONS --- */
-        .section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            margin-bottom: 3rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background: var(--primary-color);
-            margin-top: 10px;
-        }
-
-        .info-card {
-            background: var(--card-bg-color);
-            padding: 2rem;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-color);
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-
-        /* --- CODE BLOCKS (Estilo VS Code) --- */
-        .code-container {
-            background: #1e1e1e;
-            border-radius: 8px;
-            border: 1px solid #333;
-            overflow: hidden;
-            margin: 20px 0 40px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .code-header {
-            background: #252526;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #333;
-        }
-
-        .code-header span {
-            color: #ccc;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-        }
-
-        .copy-btn {
-            background: transparent;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-            border-radius: 4px;
-            padding: 4px 12px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .copy-btn:hover {
-            background: var(--primary-color);
-            color: #fff;
-        }
-
-        pre {
-            margin: 0;
-            padding: 20px;
-            overflow-x: auto;
-            color: #d4d4d4;
-        }
-
-        code {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.95rem;
-        }
-
-        /* Syntax Highlighting Simulado */
-        .keyword { color: #569cd6; }
-        .string { color: #ce9178; }
-        .function { color: #dcdcaa; }
-        .comment { color: #6a9955; }
-        .class-name { color: #4ec9b0; }
-
-        /* --- FOOTER --- */
-        footer {
-            background: #0a0a0a;
-            padding: 3rem 0;
-            text-align: center;
-            border-top: 1px solid #333;
-        }
+.bordered{
+    border:1px solid var(--primary-color);
+    color:var(--primary-color);
+}
+.custom-btn:hover{
+    color:var(--primary-color);
+}
