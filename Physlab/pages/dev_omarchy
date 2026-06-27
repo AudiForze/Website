@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omarchy for Developers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a08;
+            --bg-secondary: #141412;
+            --bg-tertiary: #1e1e1a;
+            --bg-card: rgba(20, 20, 18, 0.75);
+            --bg-card-solid: #1a1a16;
+            --text-primary: #d4cfc4;
+            --text-secondary: #8a8578;
+            --text-muted: #5a5548;
+            --accent-green: #7a9e7a;
+            --accent-green-dim: #5a7a5a;
+            --accent-amber: #b89a6a;
+            --accent-amber-dim: #8a7a5a;
+            --border-subtle: rgba(90, 85, 72, 0.2);
+            --border-medium: rgba(90, 85, 72, 0.35);
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 40px rgba(122, 158, 122, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Background with the cabin wallpaper */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://w.wallhaven.cc/full/5w/wallhaven-5weoz7.png') center/cover no-repeat;
+            z-index: -2;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                180deg,
+                rgba(10, 10, 8, 0.85) 0%,
+                rgba(10, 10, 8, 0.70) 30%,
+                rgba(10, 10, 8, 0.55) 60%,
+                rgba(10, 10, 8, 0.80) 100%
+            );
+            z-index: -1;
+        }
+
+        /* Noise texture overlay */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: -1;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Top bar - like Omarchy's status bar */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 32px;
+            background: rgba(20, 20, 26, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: var(--text-secondary);
+            letter-spacing: 0.3px;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .workspace-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .workspace-dot.active {
+            background: var(--accent-green);
+            box-shadow: 0 0 6px rgba(122, 158, 122, 0.4);
+        }
+
+        .top-bar-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .top-bar-icon {
+            width: 14px;
+            height: 14px;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .top-bar-icon:hover {
+            opacity: 1;
+        }
+
+        /* Main container */
+        .main-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 24px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(122, 158, 122, 0.1);
+            border: 1px solid rgba(122, 158, 122, 0.2);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--accent-green);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(122, 158, 122, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .hero h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 42px;
+            font-weight: 300;
+            color: var(--text-primary);
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            font-weight: 500;
+            color: var(--accent-green);
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Terminal card */
+        .terminal-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-medium);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft), var(--shadow-glow);
+            margin-bottom: 60px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .terminal-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), 0 0 60px rgba(122, 158, 122, 0.08);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 18px;
+            background: rgba(30, 30, 26, 0.6);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #5a3a3a; }
+        .terminal-dot.yellow { background: #5a5a3a; }
+        .terminal-dot.green { background: #3a5a3a; }
+
+        .terminal-title {
+            margin-left: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .terminal-body {
+            padding: 24px 28px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        .terminal-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .terminal-line:nth-child(1) { animation-delay: 0.2s; }
+        .terminal-line:nth-child(2) { animation-delay: 0.6s; }
+        .terminal-line:nth-child(3) { animation-delay: 1.0s; }
+        .terminal-line:nth-child(4) { animation-delay: 1.4s; }
+        .terminal-line:nth-child(5) { animation-delay: 1.8s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .terminal-prompt {
+            color: var(--accent-green);
+            font-weight: 500;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .terminal-command {
+            color: var(--text-primary);
+        }
+
+        .terminal-command .comment {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background: var(--accent-green);
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .terminal-divider {
+            height: 1px;
+            background: var(--border-subtle);
+            margin: 20px 0;
+        }
+
+        /* GitHub button */
+        .github-section {
+            display: flex;
+            justify-content: center;
+            padding: 0 28px 28px;
+        }
+
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            background: rgba(122, 158, 122, 0.1);
+            border: 1px solid rgba(122, 158, 122, 0.25);
+            border-radius: 10px;
+            color: var(--accent-green);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .github-btn:hover {
+            background: rgba(122, 158, 122, 0.18);
+            border-color: rgba(122, 158, 122, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(122, 158, 122, 0.1);
+        }
+
+        .github-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Info section */
+        .info-section {
+            margin-top: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border-medium), transparent);
+        }
+
+        .section-line.right {
+            background: linear-gradient(90deg, transparent, var(--border-medium));
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        /* Info cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-color: var(--border-medium);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-card-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(122, 158, 122, 0.08);
+            border: 1px solid rgba(122, 158, 122, 0.15);
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .info-card h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.2px;
+        }
+
+        .info-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .info-card ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .info-card ul li {
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding: 4px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .info-card ul li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        /* Tech tags */
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 14px;
+        }
+
+        .tech-tag {
+            padding: 4px 10px;
+            background: rgba(90, 85, 72, 0.1);
+            border: 1px solid rgba(90, 85, 72, 0.15);
+            border-radius: 6px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.2s;
+        }
+
+        .tech-tag:hover {
+            border-color: var(--accent-green-dim);
+            color: var(--accent-green);
+            background: rgba(122, 158, 122, 0.05);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 0 40px;
+            color: var(--text-muted);
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer a {
+            color: var(--accent-green-dim);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: var(--accent-green);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border-medium);
+        }
+
+        /* Selection */
+        ::selection {
+            background: rgba(122, 158, 122, 0.25);
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .terminal-body {
+                padding: 18px 20px;
+                font-size: 12px;
+            }
+
+            .main-container {
+                padding: 80px 16px 60px;
+            }
+
+            .top-bar {
+                padding: 0 12px;
+            }
+
+            .top-bar-center {
+                display: none;
+            }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="bg-layer"></div>
+    <div class="bg-overlay"></div>
+    <div class="noise"></div>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <div class="workspace-dot active"></div>
+            <div class="workspace-dot"></div>
+            <div class="workspace-dot"></div>
+            <div class="workspace-dot"></div>
+            <div class="workspace-dot"></div>
+        </div>
+        <div class="top-bar-center">Omarchy for Developers</div>
+        <div class="top-bar-right">
+            <svg class="top-bar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                <line x1="12" y1="2" x2="12" y2="12"></line>
+            </svg>
+            <svg class="top-bar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                <line x1="12" y1="20" x2="12.01" y2="20"></line>
+            </svg>
+            <svg class="top-bar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <svg class="top-bar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-badge">Available Now</div>
+            <h1>Omarchy <span>for Developers</span></h1>
+            <p class="hero-subtitle">A pre-configured Arch Linux distribution with Hyprland, built for developers who value keyboard-driven workflows and minimal aesthetics.</p>
+        </div>
+
+        <!-- Terminal Card -->
+        <div class="terminal-card">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div>
+                <div class="terminal-dot yellow"></div>
+                <div class="terminal-dot green"></div>
+                <span class="terminal-title">alacritty — bash</span>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-line">
+                    <span class="terminal-prompt">~</span>
+                    <span class="terminal-command">git clone https://github.com/AudiForze/Omarchy-For-Developers</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-prompt">~</span>
+                    <span class="terminal-command">cd Omarchy-For-Developers</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-prompt">~</span>
+                    <span class="terminal-command">chmod +x install.sh</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-prompt">~</span>
+                    <span class="terminal-command">./install.sh</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-prompt">~</span>
+                    <span class="terminal-command"><span class="comment"># Installation complete. Reboot to apply.</span><span class="terminal-cursor"></span></span>
+                </div>
+            </div>
+            <div class="terminal-divider"></div>
+            <div class="github-section">
+                <a href="https://github.com/AudiForze/Omarchy-For-Developers" target="_blank" rel="noopener" class="github-btn">
+                    <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+            <div class="section-header">
+                <div class="section-line"></div>
+                <span class="section-title">Configuration</span>
+                <div class="section-line right"></div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-icon">🪟</div>
+                    <h3>Window Manager</h3>
+                    <p>Hyprland with tiling layout, keyboard-driven navigation, and smooth animations. Workspaces 1-9 accessible via <code>SUPER + [1-9]</code>.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">hyprland</span>
+                        <span class="tech-tag">wayland</span>
+                        <span class="tech-tag">tiling</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-icon">🎨</div>
+                    <h3>Theme</h3>
+                    <p>Dark forest aesthetic with muted greens and warm ambers. Custom GTK, icon, and cursor themes included. Terminal styled with Alacritty.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">gtk</span>
+                        <span class="tech-tag">waybar</span>
+                        <span class="tech-tag">wofi</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-icon">🐍</div>
+                    <h3>Python Stack</h3>
+                    <p>Modern toolchain with <strong>uv</strong> (Astral), replacing pip, pyenv, and venv. Python 3.13 pre-installed with ruff, pytest, and mypy.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">uv</span>
+                        <span class="tech-tag">python3.13</span>
+                        <span class="tech-tag">ruff</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-icon">🛠️</div>
+                    <h3>Developer Tools</h3>
+                    <p>Essential CLI tools pre-installed and configured for productivity.</p>
+                    <ul>
+                        <li>Neovim, tmux, fzf, ripgrep</li>
+                        <li>fd, bat, eza, zoxide, starship</li>
+                        <li>Docker & Docker Compose</li>
+                        <li>Brave Browser, VS Code:</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-icon">⌨️</div>
+                    <h3>Key Bindings</h3>
+                    <p>All workflows are keyboard-first. No mouse required for daily tasks.</p>
+                    <ul>
+                        <li><code>SUPER + Return</code> — Terminal</li>
+                        <li><code>SUPER + ALT + Space</code> — Launcher</li>
+                        <li><code>SUPER + W</code> — Close window</li>
+                        <li><code>SUPER + SHIFT + R</code> — Reload config</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-icon">🔒</div>
+                    <h3>Security</h3>
+                    <p>Full disk encryption with LUKS. Auto-login after decryption. Secure Boot and TPM disabled for compatibility.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">luks</span>
+                        <span class="tech-tag">encryption</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Built with care for the Omarchy community · <a href="https://github.com/AudiForze">@AudiForze</a></p>
+        </div>
+    </div>
+</body>
+</html>
