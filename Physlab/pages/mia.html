@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M.I.A - Asistente Virtual</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: rgba(10, 14, 26, 0.85);
+            --bg-card: rgba(20, 28, 46, 0.9);
+            --bg-card-hover: rgba(26, 36, 56, 0.95);
+            --border-color: rgba(30, 45, 74, 0.8);
+            --border-glow: rgba(42, 63, 95, 0.9);
+
+            --accent-cyan: #00e5ff;
+            --accent-cyan-dim: #00b8cc;
+            --accent-blue: #4d9fff;
+            --accent-green: #00ff88;
+            --accent-purple: #b388ff;
+            --accent-orange: #ff9e40;
+            --accent-red: #ff5252;
+
+            --text-primary: #e0e6f0;
+            --text-secondary: #8b9bb4;
+            --text-muted: #5a6a82;
+            --text-bright: #ffffff;
+
+            --terminal-bg: rgba(10, 14, 26, 0.92);
+            --terminal-border: #1e2d4a;
+            --terminal-header: #141c2e;
+            --terminal-text: #00e5ff;
+            --terminal-prompt: #00ff88;
+            --terminal-cursor: #00e5ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            background: var(--bg-primary);
+        }
+
+        /* ===== FIXED BACKGROUND ===== */
+        .bg-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: url('https://w.wallhaven.cc/full/13/wallhaven-13xyz9.jpg') center/cover no-repeat;
+        }
+
+        .bg-fixed::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(10, 14, 26, 0.88) 0%, rgba(10, 14, 26, 0.75) 50%, rgba(20, 28, 46, 0.82) 100%);
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 26, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 40px;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+        }
+
+        .nav-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent-cyan);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px 40px;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* Terminal Window */
+        .terminal {
+            background: var(--terminal-bg);
+            border: 1px solid var(--terminal-border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 0 1px rgba(0, 229, 255, 0.1),
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(0, 229, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--terminal-header);
+            border-bottom: 1px solid var(--terminal-border);
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .terminal-btn.red { background: #ff5f56; }
+        .terminal-btn.yellow { background: #ffbd2e; }
+        .terminal-btn.green { background: #27c93f; }
+
+        .terminal-title {
+            margin-left: 12px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 13px;
+            color: var(--text-secondary);
+            flex: 1;
+            text-align: center;
+        }
+
+        .terminal-body {
+            padding: 24px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            min-height: 300px;
+            color: var(--terminal-text);
+        }
+
+        .terminal-line {
+            margin-bottom: 4px;
+            opacity: 0;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .terminal-prompt {
+            color: var(--terminal-prompt);
+            margin-right: 8px;
+        }
+
+        .terminal-input {
+            color: var(--text-primary);
+        }
+
+        .terminal-output {
+            color: var(--text-secondary);
+            padding-left: 0;
+            margin-top: 4px;
+        }
+
+        .terminal-output.success {
+            color: var(--accent-green);
+        }
+
+        .terminal-output.info {
+            color: var(--accent-cyan);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background: var(--terminal-cursor);
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ascii-art {
+            color: var(--accent-cyan);
+            font-size: 12px;
+            line-height: 1.4;
+            margin-bottom: 16px;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 80px 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 12px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .section-line {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            margin: 0 auto 50px;
+            border-radius: 2px;
+        }
+
+        /* ===== FEATURES FORMAT - LIST STYLE ===== */
+        .feature-section {
+            margin-bottom: 60px;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .feature-section:last-child {
+            border-bottom: none;
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .feature-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 8px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .feature-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-bright);
+            letter-spacing: 1px;
+        }
+
+        .feature-content {
+            padding-left: 66px;
+        }
+
+        .feature-content p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .feature-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-content strong {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .feature-highlight {
+            background: var(--bg-card);
+            border-left: 3px solid var(--accent-cyan);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+        }
+
+        .feature-highlight p {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .feature-highlight p:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 16px 0;
+        }
+
+        .feature-list li {
+            color: var(--text-secondary);
+            font-size: 14px;
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .feature-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        /* ===== FEATURE IMAGES ===== */
+        .feature-image-container {
+            margin-top: 24px;
+            margin-bottom: 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+        }
+
+        .feature-image-container:hover {
+            border-color: var(--border-glow);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 229, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .feature-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-image-container:hover .feature-image {
+            transform: scale(1.02);
+        }
+
+        .feature-image-caption {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 10px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== CONNECTIVITY GRID ===== */
+        .connectivity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 14px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .connectivity-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .connectivity-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+        }
+
+        .connectivity-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .connectivity-name {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== BRAIN SECTION ===== */
+        .brain-visual {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 50px 0;
+        }
+
+        .brain-node {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .brain-node:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .brain-node-icon {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .brain-node-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .brain-description {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .brain-description strong {
+            color: var(--accent-cyan);
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            border-color: var(--accent-cyan);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: rgba(10, 14, 26, 0.9);
+            border-top: 1px solid var(--border-color);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 13px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .footer-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 14, 26, 0.95);
+                flex-direction: column;
+                padding: 20px;
+                gap: 16px;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .feature-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .feature-number {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .feature-title {
+                font-size: 18px;
+            }
+
+            .feature-content {
+                padding-left: 0;
+            }
+
+            .feature-highlight {
+                padding: 12px 16px;
+            }
+
+            .feature-image-container {
+                margin-top: 16px;
+            }
+
+            .brain-visual {
+                gap: 16px;
+            }
+
+            .brain-node {
+                width: 90px;
+                height: 90px;
+            }
+
+            .brain-node-icon {
+                font-size: 22px;
+            }
+
+            .terminal-body {
+                padding: 16px;
+                font-size: 11px;
+            }
+
+            .ascii-art {
+                font-size: 9px;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-number {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .connectivity-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== CUSTOM SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--border-glow); }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <!-- Fixed Background -->
+    <div class="bg-fixed"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">M.I.A</a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#caracteristicas">Características</a></li>
+                <li><a href="#conectividad">Conectividad</a></li>
+                <li><a href="#cerebro">Cerebro</a></li>
+                <li><a href="#estadisticas">Estadísticas</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Terminal -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="terminal-btn red"></span>
+                        <span class="terminal-btn yellow"></span>
+                        <span class="terminal-btn green"></span>
+                    </div>
+                    <span class="terminal-title">mia@system: ~</span>
+                </div>
+                <div class="terminal-body" id="terminal-body">
+                    <!-- Content will be generated by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="caracteristicas">
+        <h2 class="section-title reveal">CARACTERÍSTICAS</h2>
+        <p class="section-subtitle reveal">M.I.A es un centro operativo diseñado para entusiastas de Linux y usuarios avanzados que necesitan centralizar la telemetría de su sistema, el control de su entorno gráfico bajo un diseño estético inspirado en interfaces de ciencia ficción de estilo Cyberpunk/Retro-futurista (fuentes Orbitron y Share Tech Mono con efectos de resplandor neón).</p>
+        <div class="section-line reveal"></div>
+
+        <!-- 01. Dashboard -->
+        <div class="feature-section reveal">
+            <div class="feature-header">
+                <span class="feature-number">01</span>
+                <h3 class="feature-title">Dashboard</h3>
+            </div>
+            <div class="feature-content">
+                <p>Mia cuenta con un dashboard que muestra toda la información sobre la computadora, incluyendo toda la información sobre el consumo de RAM, CPU, temperatura, envío/recibido de datos, almacenamiento, procesos en ejecución, etc.</p>
+                <div class="feature-image-container">
+                    <img src="https://raw.githubusercontent.com/AudiForze/Website/main/Physlab/images/demo/Galeria/dasboard.png" alt="Dashboard de M.I.A" class="feature-image">
+                    <div class="feature-image-caption">Dashboard en tiempo real</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 02. Chatbot -->
+        <div class="feature-section reveal">
+            <div class="feature-header">
+                <span class="feature-number">02</span>
+                <h3 class="feature-title">Chatbot</h3>
+            </div>
+            <div class="feature-content">
+                <p>Mia también cuenta con un dashboard interactivo donde puedas interactuar con modelos de IA. Se puede hacer desde el apartado inferior derecho o se puede interactuar con Mia desde la parte de arriba del dashboard. La interacción con el cerebro de Mia es la mejor parte.</p>
+                <div class="feature-image-container">
+                    <img src="https://raw.githubusercontent.com/AudiForze/Website/main/Physlab/images/demo/Galeria/chatbot.png" alt="Chatbot de M.I.A" class="feature-image">
+                    <div class="feature-image-caption">Interfaz del chatbot</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 03. Configuración -->
+        <div class="feature-section reveal">
+            <div class="feature-header">
+                <span class="feature-number">03</span>
+                <h3 class="feature-title">Configuración</h3>
+            </div>
+            <div class="feature-content">
+                <p>Mia tiene set-ups personalizados como el de trabajo o ideas, donde hace un conjunto de pasos para completar mi set-up que uso para hacer diferentes tareas. Por ejemplo, si voy a programar, presiono trabajo y automáticamente va a abrir las aplicaciones que uso, pondrá mi música, se conecta a mis audífonos si no lo está, establece el volumen en un volumen fijo, dentro de Visual Studio Code establece una terminal dentro del entorno donde estoy desarrollando y me prepara una terminal con conexión a Mia. Y todo esto desde un botón.</p>
+                <div class="feature-image-container">
+                    <img src="https://raw.githubusercontent.com/AudiForze/Website/main/Physlab/images/demo/Galeria/configuracion.png" alt="Configuración de M.I.A" class="feature-image">
+                    <div class="feature-image-caption">Acceso rápido a set-ups personalizados</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 04. Funciones -->
+        <div class="feature-section reveal">
+            <div class="feature-header">
+                <span class="feature-number">04</span>
+                <h3 class="feature-title">Funciones</h3>
+            </div>
+            <div class="feature-content">
+                <p>Desde Mia también se puede interactuar con el audio del sistema, las conexiones WiFi, lanzar cualquier aplicación en el sistema, ya que Mia tiene un "rofi" configurado que permite abrir cualquier aplicación. Incluso tengo un sistema con el cual desde mi celular puedo interactuar entre las aplicaciones que tengo abiertas en mi computadora. Esto me permite mover, cerrar, abrir, modificar aplicaciones entre monitores desde el celular.</p>
+                <div class="feature-image-container">
+                    <img src="https://raw.githubusercontent.com/AudiForze/Website/main/Physlab/images/demo/Galeria/funcion.png" alt="Funciones de M.I.A" class="feature-image">
+                    <div class="feature-image-caption">Módulos de control del entorno</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 05. Conectividad -->
+        <div class="feature-section reveal">
+            <div class="feature-header">
+                <span class="feature-number">05</span>
+                <h3 class="feature-title">Conectividad</h3>
+            </div>
+            <div class="feature-content">
+                <p>Mia, gracias a sus herramientas, tiene conexión a un montón de aplicaciones, como por ejemplo:</p>
+                <ul class="feature-list">
+                    <li>Discord</li>
+                    <li>Notion</li>
+                    <li>Airtable</li>
+                    <li>Drive</li>
+                    <li>Gmail</li>
+                    <li>Cloudflare</li>
+                    <li>Teams</li>
+                    <li>Spotify</li>
+                    <li>Home Assistant</li>
+                    <li>etc.</li>
+                </ul>
+                <p>Incluso tiene acceso a mi WhatsApp, que es una parte que utilizo mucho para poder responder mis mensajes de forma automática, resumir conversaciones o evitar gente cuando estoy ocupado.</p>
+            </div>
+        </div>
+
+        <!-- 06. Ejecución -->
+        <div class="feature-section reveal">
+            <div class="feature-header">
+                <span class="feature-number">06</span>
+                <h3 class="feature-title">Ejecución</h3>
+            </div>
+            <div class="feature-content">
+                <p>Mia se ejecuta desde una computadora que utiliza como servidor, pero también se puede hacer desde un VPS. En su proceso de ejecución se despliega una conexión desde ngrok que lanza un portal web accesible desde todo el mundo con un panel de autenticación que permite regular la entrada al sistema y desde este panel puedo interactuar con todo el sistema desde mi celular.</p>
+            </div>
+        </div>
+
+        <!-- 07. Tareas -->
+        <div class="feature-section reveal">
+            <div class="feature-header">
+                <span class="feature-number">07</span>
+                <h3 class="feature-title">Tareas</h3>
+            </div>
+            <div class="feature-content">
+                <p>Parte de mi trabajo con Mia es el hecho de que automatice TODAS mis clases utilizando el sistema de M.I.A. Básicamente, Mia se conecta a mi aplicación de clases que uso en la universidad y se encarga de entender, desarrollar y mandar todas mis tareas, toma los exámenes virtuales por mí. Lo que me permite tener tiempo libre para invertir en otras cosas más importantes y no perder el tiempo con la universidad.</p>
+            </div>
+        </div>
+
+        <!-- 08. Cerebro -->
+        <div class="feature-section reveal">
+            <div class="feature-header">
+                <span class="feature-number">08</span>
+                <h3 class="feature-title">Cerebro</h3>
+            </div>
+            <div class="feature-content">
+                <p>Esta es la parte más importante y es cómo funciona Mia. El cerebro de Mia es un sistema que yo mismo creé que utiliza múltiples herramientas para crear un sistema de arneses de agentes de inteligencia artificial que permita interactuar de forma interna con la computadora. Básicamente utiliza múltiples modelos de inteligencia artificial y los dota de la habilidad de poder interactuar de forma autónoma con todo el sistema.</p>
+                <div class="feature-highlight">
+                    <p><strong>M.I.A</strong> es capaz de poder crear sus propias herramientas y editarse a sí misma, lo que le permite poder hacer <strong>ABSOLUTAMENTE</strong> de todo. Lo que no sabe cómo hacer, lo investiga, aprende y crea una herramienta que le permita hacer la habilidad que antes no podía hacer. Por lo que la escalabilidad de este sistema es abismal, ya que es el único sistema capaz de aprender y ejecutar lo aprendido.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 09. Memoria -->
+        <div class="feature-section reveal">
+            <div class="feature-header">
+                <span class="feature-number">09</span>
+                <h3 class="feature-title">Memoria</h3>
+            </div>
+            <div class="feature-content">
+                <p>Mia tiene la capacidad de recordar todo gracias a sus múltiples memorias. Le tengo una destinada a mí, donde recolecta datos sobre mí y mi forma de trabajar; otra propia donde anota cómo debe interactuar; también tiene otras por secciones, otra para la conectividad y otra más. Estas memorias utilizan un sistema de vectorizado que le permite guardar los datos y acceder a ellos de forma mucho más rápida.</p>
+            </div>
+        </div>
+
+        <!-- 10. Ejecución de Tareas -->
+        <div class="feature-section reveal">
+            <div class="feature-header">
+                <span class="feature-number">10</span>
+                <h3 class="feature-title">Ejecución de Tareas</h3>
+            </div>
+            <div class="feature-content">
+                <p>Tengo algunas tareas que utilizo basándome en el modelo de cron para automatizar tareas repetitivas dentro de mi trabajo y analizar métricas que, al ser repetitivas, suelo conectar a M.I.A para que las haga de forma automática cada cierto tiempo o en una hora en específico todos los días.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Connectivity Section -->
+    <section id="conectividad">
+        <h2 class="section-title reveal">CONECTIVIDAD</h2>
+        <p class="section-subtitle reveal">Mia, gracias a sus herramientas, tiene conexión a un montón de aplicaciones.</p>
+        <div class="section-line reveal"></div>
+
+        <div class="connectivity-grid">
+            <div class="connectivity-item reveal">
+                <div class="connectivity-icon">💬</div>
+                <div class="connectivity-name">Discord</div>
+            </div>
+            <div class="connectivity-item reveal">
+                <div class="connectivity-icon">📝</div>
+                <div class="connectivity-name">Notion</div>
+            </div>
+            <div class="connectivity-item reveal">
+                <div class="connectivity-icon">📊</div>
+                <div class="connectivity-name">Airtable</div>
+            </div>
+            <div class="connectivity-item reveal">
+                <div class="connectivity-icon">☁️</div>
+                <div class="connectivity-name">Drive</div>
+            </div>
+            <div class="connectivity-item reveal">
+                <div class="connectivity-icon">📧</div>
+                <div class="connectivity-name">Gmail</div>
+            </div>
+            <div class="connectivity-item reveal">
+                <div class="connectivity-icon">🌐</div>
+                <div class="connectivity-name">Cloudflare</div>
+            </div>
+            <div class="connectivity-item reveal">
+                <div class="connectivity-icon">💬</div>
+                <div class="connectivity-name">WhatsApp</div>
+            </div>
+            <div class="connectivity-item reveal">
+                <div class="connectivity-icon">👥</div>
+                <div class="connectivity-name">Teams</div>
+            </div>
+            <div class="connectivity-item reveal">
+                <div class="connectivity-icon">🎵</div>
+                <div class="connectivity-name">Spotify</div>
+            </div>
+            <div class="connectivity-item reveal">
+                <div class="connectivity-icon">🏠</div>
+                <div class="connectivity-name">Home Assistant</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brain Section -->
+    <section class="brain-section" id="cerebro">
+        <h2 class="section-title reveal">EL CEREBRO</h2>
+        <p class="section-subtitle reveal">Esta es la parte más importante y es cómo funciona Mia.</p>
+        <div class="section-line reveal"></div>
+
+        <div class="brain-visual reveal">
+            <div class="brain-node">
+                <div class="brain-node-icon">🧠</div>
+                <div class="brain-node-label">Aprendizaje</div>
+            </div>
+            <div class="brain-node">
+                <div class="brain-node-icon">🔧</div>
+                <div class="brain-node-label">Creación</div>
+            </div>
+            <div class="brain-node">
+                <div class="brain-node-icon">🔄</div>
+                <div class="brain-node-label">Auto-edición</div>
+            </div>
+            <div class="brain-node">
+                <div class="brain-node-icon">🌐</div>
+                <div class="brain-node-label">Investigación</div>
+            </div>
+            <div class="brain-node">
+                <div class="brain-node-icon">⚡</div>
+                <div class="brain-node-label">Ejecución</div>
+            </div>
+        </div>
+
+        <div class="brain-description reveal">
+            <p>El cerebro de Mia es un sistema que utiliza <strong>múltiples herramientas</strong> para crear un sistema de arneses de agentes de inteligencia artificial que permita interactuar de forma interna con la computadora. Básicamente utiliza múltiples modelos de inteligencia artificial y los dota de la habilidad de poder interactuar de forma autónoma con todo el sistema.</p>
+            <br>
+            <p><strong>M.I.A</strong> es capaz de poder crear sus propias herramientas y editarse a sí misma, lo que le permite poder hacer <strong>ABSOLUTAMENTE</strong> de todo. Lo que no sabe cómo hacer, lo investiga, aprende y crea una herramienta que le permita hacer la habilidad que antes no podía hacer. Por lo que la escalabilidad de este sistema es abismal, ya que es el <strong>único sistema capaz de aprender y ejecutar lo aprendido</strong>.</p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="estadisticas">
+        <h2 class="section-title reveal">ESTADÍSTICAS</h2>
+        <p class="section-subtitle reveal">Métricas del sistema M.I.A en operación continua.</p>
+        <div class="section-line reveal"></div>
+
+        <div class="stats-bar">
+            <div class="stat-item reveal">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Disponibilidad</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Escalabilidad</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Automatización</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-number">Global</div>
+                <div class="stat-label">Acceso</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-brand">M.I.A</div>
+        <p class="footer-text">Asistente Virtual Autónomo | Desarrollado en Python</p>
+        <p class="footer-text" style="margin-top: 8px;">© 2026 M.I.A System. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // ===== TERMINAL SIMULATION =====
+        const terminalBody = document.getElementById('terminal-body');
+
+        const asciiArt = `
+███╗   ███╗██╗ █████╗ 
+████╗ ████║██║██╔══██╗
+██╔████╔██║██║███████║
+██║╚██╔╝██║██║██╔══██║
+██║ ╚═╝ ██║██║██║  ██║
+╚═╝     ╚═╝╚═╝╚═╝  ╚═╝`;
+
+        const terminalLines = [
+            { type: 'ascii', content: asciiArt },
+            { type: 'empty' },
+            { type: 'info', content: 'M.I.A System v2.0.1 - Asistente Virtual Autónomo' },
+            { type: 'info', content: 'Desarrollado en Python | Estado: OPERATIVO' },
+            { type: 'empty' },
+            { type: 'prompt', content: 'whoami' },
+            { type: 'output-success', content: 'Un asistente virtual capaz de hacer todo lo que tú puedes hacer, pero mucho mejor.' },
+            { type: 'empty' },
+            { type: 'output', content: 'M.I.A es un centro operativo diseñado para entusiastas de Linux y usuarios avanzados.' },
+            { type: 'output', content: 'Centraliza la telemetría del sistema y el control del entorno gráfico bajo un diseño' },
+            { type: 'output', content: 'estético inspirado en interfaces de ciencia ficción Cyberpunk/Retro-futurista.' },
+            { type: 'empty' },
+            { type: 'prompt', content: 'cat /proc/features' },
+            { type: 'output', content: '• Dashboard de sistema en tiempo real' },
+            { type: 'output', content: '• Chatbot interactivo con modelos de IA' },
+            { type: 'output', content: '• Configuración personalizada de entornos' },
+            { type: 'output', content: '• Control remoto desde dispositivos móviles' },
+            { type: 'output', content: '• Automatización de tareas universitarias' },
+            { type: 'output', content: '• Sistema de memoria vectorizada' },
+            { type: 'output', content: '• Autoaprendizaje y autoedición' },
+            { type: 'empty' },
+            { type: 'prompt', content: 'cat /proc/connectivity' },
+            { type: 'output', content: 'Discord | Notion | Airtable | Drive | Gmail | Cloudflare | WhatsApp | Teams | Spotify | Home Assistant' },
+            { type: 'empty' },
+            { type: 'prompt', content: 'cat /proc/status' },
+            { type: 'output-success', content: 'Estado: TODAS LAS TAREAS AUTOMATIZADAS' },
+            { type: 'output', content: 'Exámenes virtuales: COMPLETADOS' },
+            { type: 'output', content: 'Tiempo liberado: 100%' },
+            { type: 'empty' },
+            { type: 'prompt', content: 'cat /proc/brain' },
+            { type: 'output', content: 'Sistema de arneses de agentes de IA activo.' },
+            { type: 'output', content: 'Múltiples modelos operando de forma autónoma.' },
+            { type: 'output-success', content: 'Capacidad de crear herramientas propias: HABILITADA' },
+            { type: 'empty' },
+            { type: 'info', content: 'Escribe "help" para ver todos los comandos disponibles.' },
+        ];
+
+        let lineIndex = 0;
+
+        function createLineElement(line, index) {
+            const div = document.createElement('div');
+            div.className = 'terminal-line';
+            div.style.animationDelay = `${index * 0.1}s`;
+
+            switch(line.type) {
+                case 'ascii':
+                    div.innerHTML = `<pre class="ascii-art">${line.content}</pre>`;
+                    break;
+                case 'empty':
+                    div.innerHTML = '&nbsp;';
+                    break;
+                case 'prompt':
+                    div.innerHTML = `<span class="terminal-prompt">user@mia:~$</span> <span class="terminal-input">${line.content}</span>`;
+                    break;
+                case 'output':
+                    div.innerHTML = `<span class="terminal-output">${line.content}</span>`;
+                    break;
+                case 'output-success':
+                    div.innerHTML = `<span class="terminal-output success">${line.content}</span>`;
+                    break;
+                case 'output-info':
+                    div.innerHTML = `<span class="terminal-output info">${line.content}</span>`;
+                    break;
+                case 'info':
+                    div.innerHTML = `<span class="terminal-output info">${line.content}</span>`;
+                    break;
+            }
+            return div;
+        }
+
+        function typeTerminal() {
+            if (lineIndex < terminalLines.length) {
+                const line = terminalLines[lineIndex];
+                const element = createLineElement(line, lineIndex);
+                terminalBody.appendChild(element);
+                terminalBody.scrollTop = terminalBody.scrollHeight;
+                lineIndex++;
+
+                const delay = line.type === 'ascii' ? 100 : 
+                             line.type === 'empty' ? 50 : 
+                             line.type === 'prompt' ? 600 : 150;
+
+                setTimeout(typeTerminal, delay);
+            } else {
+                const cursorLine = document.createElement('div');
+                cursorLine.className = 'terminal-line';
+                cursorLine.innerHTML = `<span class="terminal-prompt">user@mia:~$</span> <span class="cursor"></span>`;
+                cursorLine.style.opacity = '1';
+                terminalBody.appendChild(cursorLine);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(typeTerminal, 800);
+        });
+
+        // ===== SCROLL REVEAL =====
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // ===== MOBILE MENU =====
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
